@@ -1,0 +1,21 @@
+root = true
+
+[*]
+# ij_continuation_indent_size = 8
+# ij_formatter_off_tag = @formatter:off
+# ij_formatter_on_tag = @formatter:on
+# ij_formatter_tags_enabled = false
+# ij_smart_tabs = false
+# ij_wrap_on_typing = false
+
+[{*.jhm,*.xslt,*.xul,*.rng,*.xsl,*.xsd,*.jrxml,*.xml,*.tld,*.fxml,*.wsdl,*.jnlp,*.ant}]
+# ij_continuation_indent_size = 4
+# ij_xml_block_comment_at_first_column = true
+# ij_xml_keep_indents_on_empty_lines = false
+# ij_xml_line_comment_at_first_column = true
+# ij_xml_use_custom_settings = true
+# ij_continuation_indent_size = 4
+# ij_xml_block_comment_at_first_column = true
+# ij_xml_keep_indents_on_empty_lines = false
+# ij_xml_line_comment_at_first_column = true
+# ij_xml_use_custom_settings = true

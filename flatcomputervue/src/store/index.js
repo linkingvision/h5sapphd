@@ -22,7 +22,10 @@ export default new Vuex.Store({
       psw:""
      },//查看端口号
      radio:1,
-     imgURL:''
+     imgURL:'',
+     root:null,
+     token:null,
+     users:null,
 },
   mutations: {
     [types.USEPORT]: (state, data) => {
@@ -60,6 +63,14 @@ export default new Vuex.Store({
       console.log(data)
       localStorage.h5stoken = data
       state.token = data
+    },
+    [types.LOGOUT]: (state) => {
+      localStorage.removeItem('h5stoken')
+      state.token = null
+      localStorage.removeItem('h5suser')
+      state.users = null
+      localStorage.removeItem('h5sroot')
+      state.root = null
     },
     [types.RADIO]:(state, data) => {
       console.log(data)

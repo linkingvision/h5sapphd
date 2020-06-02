@@ -98,6 +98,7 @@ export default {
   created(){
     this.getStorage()
   },
+
   mounted(){
      $('.ion-config').hide()
   },
@@ -320,12 +321,12 @@ img{
 }
 .ion-loginbutton{
   position: relative;
-  margin-top:30px;
+  /* margin-top:30px; */
 }
 .ion-loginbutton .ion-activatable{
   position: absolute;
-  top: 0;
-  right: 0;
+  top:-10px;
+  right: 15px;
   width:60px;
   height: 60px;
 

@@ -37,6 +37,55 @@ function sethtml(designSize, rootValue){
   const htmlFontSize = winWidth * rootV / designSize;
   window.document.documentElement.style.fontSize = htmlFontSize + 'px';
   } sethtml(375)
+  window.onbeforeunload = function () {
+    var socket = new WebSocket("this.$store.state.callport/websocket");
+    if(socket.readyState != socket.OPEN){
+        alert("连接已中断!")
+        return false;
+     }
+    　　websocket.close();
+    }
+  // http request 拦截器
+axios.interceptors.request.use(
+  config => {
+    // console.log('http request');
+    if (store.state.token) {
+      config.headers.Authorization = `token ${store.state.token}`
+    }
+    return config
+  },
+  err => {
+    return Promise.reject(err)
+  }
+)
+// http response 拦截器
+axios.interceptors.response.use(
+  response => {
+    return response
+  },
+  error => {
+    if (error.response) {
+      if(store.state.token!=null){
+        console.log(store.state.token);
+        return false
+      }
+      switch (error.response.status) {
+        case 401:
+          // 401 清除token信息并跳转到登录页面
+          // console.log('http auth');
+          store.commit(types.LOGOUT)
+          // 只有在当前路由不是登录页面才跳转
+          router.currentRoute.path !== 'Login' &&
+            router.replace({
+              path: '/Login',
+              query: { redirect: router.currentRoute.path }
+            })
+      }
+    }
+    // console.log(JSON.stringify(error));//console : Error: Request failed with status code 402
+    return Promise.reject(error.response.data)
+  }
+)
 new Vue({
   el: '#app',
   router,

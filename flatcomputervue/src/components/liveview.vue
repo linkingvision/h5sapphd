@@ -4,20 +4,36 @@
       <ion-header>
           <ion-toolbar  color="#151515" class="ion-toolbar" style="--min-height:64px">
              <ion-buttons slot="start" class="username">
-                <ion-button>
-                    <img src="../assets/imags/user5@2x.png" alt="">
-                    <ion-label class="user-label" color='#FFFFFF'> {{this.$store.state.Useport.user}}</ion-label>
-                </ion-button>
+                <el-dropdown trigger="click">
+                    <ion-button>
+                        <img src="../assets/imags/user5@2x.png" alt="">
+                        <ion-label class="user-label" color='#FFFFFF'> {{this.$store.state.Useport.user}}</ion-label>
+                    </ion-button>
+                    <el-dropdown-menu slot="dropdown">
+                        <el-dropdown-item >
+                            <ion-button @click="logout()" class="logbtn">
+                                <span class="logout"></span>
+                                <ion-label>退出登录</ion-label>
+                            </ion-button>
+                        </el-dropdown-item>
+                        <el-dropdown-item>
+                            <ion-button @click="about()" class="logbtn">
+                               <span class="about"></span>
+                               <ion-label color='#FFFFF'>关于</ion-label>
+                            </ion-button>
+                        </el-dropdown-item>
+                    </el-dropdown-menu>
+                 </el-dropdown>
              </ion-buttons>
              <ion-segment value="livie" class="segment">
                     <ion-segment-button value="livie" checked>
                          <ion-label color='#C3C3C3'>实时视频</ion-label>
                     </ion-segment-button>
                     <ion-segment-button value="playback">
-                         <ion-label color='#C3C3C3'>回放</ion-label>
+                         <ion-label color='#C3C3C3'>上传</ion-label>
                     </ion-segment-button>
                     <ion-segment-button value="call">
-                         <ion-label color='#C3C3C3'>报警</ion-label>
+                         <ion-label color='#C3C3C3'>搜索</ion-label>
                     </ion-segment-button>
                     <ion-segment-button value="all">
                          <ion-label color='#C3C3C3'>全部</ion-label>
@@ -31,51 +47,70 @@
          </ion-toolbar>
       </ion-header>
        <ion-menu side="end" menu-id="custom" class="my-custom-menu"  content-id="main"  type="overlay">
-                <ion-header>
-                    <ion-toolbar style="--background:#222223">
-                        <ion-segment class="menu-gongneng">
-                            <ion-segment-button  value="livie" checked class="Device">
-                                <ion-label>设备</ion-label>
-                            </ion-segment-button>
-                            <ion-segment-button value="playback" class="Device">
-                                <ion-label>最近浏览</ion-label>
-                            </ion-segment-button>
-                            <ion-segment-button value="call" class="Device">
-                                <ion-label>收藏夹</ion-label>
-                            </ion-segment-button>
-                       </ion-segment>
-                    </ion-toolbar>
-                </ion-header>
-                <ion-content color="#222223" class="menu-content">
-                    	<div class="devicetoog">
-							<div>区域</div>
-						</div>
-						<el-tree class="el_tree" 
-							node-key="strName" 
-							:default-expanded-keys="['root']" 
-							:data="camdata" 
-							:props="defaultProps1">
-							<span slot-scope="{ node, data }" style="width:100%;">
-								<span class="root">
-								    <span class="iconfont1" style="color:rgb(142, 132, 132);"></span>
-									<span :class="data.iconclass" style="padding-left: 4px;">{{data.strName}}</span>
-								</span>
-								<div v-if="data.cam.length!=0">
-									<el-tree class="el_tree1" :data="data.cam" :props="defaultProps1" @node-click="handleNodeClick1">
-										<span slot-scope="{ node, data }">
-											<div style="width:100%;display: flex;justify-content: space-between;">
-												<span >
-													<span :class="data.iconclass" style="color:rgb(142, 132, 132);"></span>
-													<span  style="padding-left: 4px;">{{data.strName}}</span>
-												</span>
-												<span :class="data.iconclass2" class="black" style=""></span>
-											</div>
-										</span>
-									</el-tree>
-								</div>
-							</span>
-						</el-tree> 
-                </ion-content>
+            <ion-header>
+                <ion-toolbar style="--background:#222223">
+                    <ion-segment class="menu-gongneng" :value='segmentChecked' @ionChange="segmentChecked=$event.target.value" >
+                        <ion-segment-button  value="livie" checked class="Device" >
+                            <ion-label>设备</ion-label>
+                        </ion-segment-button>
+                        <ion-segment-button value="playback" class="Device">
+                            <ion-label>最近浏览</ion-label>
+                        </ion-segment-button>
+                        <ion-segment-button value="call" class="Device">
+                            <ion-label>收藏夹</ion-label>
+                        </ion-segment-button>
+                    </ion-segment>
+                </ion-toolbar>
+            </ion-header>
+            <ion-content color="#222223" class="menu-content">
+                 <!--设备 -->
+                 <div v-if="segmentChecked==='livie'">
+                    <div class="devicetoog">
+                        <div>区域</div>
+                    </div>
+                    <el-tree class="el_tree" 
+                        node-key="strName" 
+                        :default-expanded-keys="['root']" 
+                        :data="camdata" 
+                        :props="defaultProps1">
+                        <span slot-scope="{ node, data }" style="width:100%;">
+                            <span class="root">
+                                <span class="iconfont1" style="color:rgb(142, 132, 132);"></span>
+                                <span :class="data.iconclass" style="padding-left: 4px;">{{data.strName}}</span>
+                            </span>
+                            <div v-if="data.cam.length!=0">
+                                <el-tree class="el_tree1" :data="data.cam" :props="defaultProps1" @node-click="handleNodeClick1">
+                                    <span slot-scope="{ node, data }">
+                                        <div style="width:100%;display: flex;justify-content: space-between;">
+                                            <span >
+                                                <span :class="data.iconclass" style="color:rgb(142, 132, 132);"></span>
+                                                <span  style="padding-left: 4px;">{{data.strName}}</span>
+                                            </span>
+                                            <span :class="data.iconclass2" class="black" style=""></span>
+                                        </div>
+                                    </span>
+                                </el-tree>
+                            </div>
+                        </span>
+                    </el-tree> 
+                </div>
+                <!-- 最近浏览 -->
+                 <div v-if="segmentChecked==='playback'">
+                    <ion-list class="Recent-browse">
+                       <ion-item lines="none" class="RecentBrowse"  v-for="(item, index) in viewHistory" :key="index"  @click="changePanelhistory(item)">
+                            <ion-thumbnail slot="end" class="browseimg">
+                                <video width="100%" height="100%" autoplay  style="background-color:#222223;border-radius:15px;" :poster='item.Screenshotimg'></video>
+                            </ion-thumbnail>
+                            <ion-label  class="browseLabel">{{item.label}}</ion-label>
+                            <ion-label position="stacked" class="browseLabel2">2020.5.28.26</ion-label>
+                       </ion-item>
+                    </ion-list>
+                 </div>
+                <!--收藏夹 -->
+                 <div v-if="segmentChecked==='call'">
+                    <ion-label color='#FFFFF'> 暂无收藏夹</ion-label>
+                </div>
+            </ion-content>
         </ion-menu>
       <!-- content -->
       <ion-content class="ion-content" color='#151515'>
@@ -83,7 +118,6 @@
                 <div name='flex' style="position: relative;" class="videoColor" v-for="r in rows" :key="r">
                     <div class="palace" name="flex" v-for="c in cols" @contextmenu.prevent="stopVideo($event)" @click="videoClick(r,c,$event)" :key="c">
                         <v-liveplayer v-bind:id="'h'+r+c" :h5id="'h'+r+c" :rows="rows" :cols="cols" :h5videoid="'hvideo'+r+c" >
-
                         </v-liveplayer>
                     </div> 
                 </div>
@@ -104,20 +138,20 @@
                       <img src="../assets/imags/zantingtingzhi-3@2x.png" alt="">   
                  </ion-button>
                  <ion-button class="gongge">
-                     <img src="../assets/imags/gongge10@2x.png" alt="">
+                    <img src="../assets/imags/gongge10@2x.png" alt="">
                  </ion-button>
-                 <ion-button class="close">
+                 <ion-button class="close" @click="close()">
                      <img src="../assets/imags/guanbi-2@2x.png" alt="">
                  </ion-button> 
               </ion-buttons>
          </ion-toolbar>
-              <div class="img"></div>
+             <div class="img"></div>
      </ion-footer>
      <!-- <ion-router-outlet main></ion-router-outlet> -->
-  </div>
+   </div>
 </template>
 <script>
-    import { menuController } from '@ionic/core';
+   import { menuController } from '@ionic/core';
     window.menuController = menuController;
 </script>
 <script>
@@ -128,6 +162,7 @@ import '../assets/js/platform.js'
 import '../assets/js/h5splayer.js'
 import '../assets/js/h5splayerhelper.js'
 import '../assets/css/h5splayer.css'
+import * as types from '@/store/types'
 import {H5siOS,H5sPlayerCreate} from '../assets/js/h5splayerhelper.js'
 import {H5sPlayerWS,H5sPlayerHls,H5sPlayerRTC} from '../assets/js/h5splayer.js'
 import $ from 'jquery'
@@ -140,8 +175,12 @@ export default {
    
   data(){
       return{
+        customPopoverOptions:[],
+        segmentChecked:'livie',
+        visible: false,
         selectCol: 1,
-	    selectRow: 1,
+        selectRow: 1,
+        rc:13,
         rows: 2,
         cols: 2,
         h5videoid:'',
@@ -158,20 +197,67 @@ export default {
             label: 'strName',
             cam:"cam",
         },
+        viewHistory:''
     }
+  },
+  created(){
+    this.historyimg()
   },
   mounted(){
     this.Regional()
-  },
+ },
   methods:{
+
+  //  头部菜单
+ segmentChanged(event){
+   console.log(event)
+ },
+ logout(){
+   this.$store.commit(types.LOGOUT);
+   var root = this.$store.state.callport;
+   var url = root + "/api/v1/Logout?session="+this.$store.state.token;
+   this.$http.get(url).then(result=>{
+        if(result.status==200){
+          this.$router.push('/Login')
+        }else{
+          this.$router.push('/Login')
+        }
+    })
+ },
+  // 头部左边边下拉菜单
+ presentPopover(ev) {
+    const popover = Object.assign(document.createElement('ion-popover'), {
+    component: 'popover-example-page',
+    cssClass: 'my-custom-class',
+    event: ev,
+    translucent: true
+  });
+    document.body.appendChild(popover);
+    return popover.present();
+},
   // 头部右边下拉菜单
  openCustom(){
-      $('.menubgc').toggleClass('menubgctogle')
-        // this.menu.enable(true, 'custom');
-    //   this.menu.open('custom');
-      console.log(1)
-
-  },
+    $('.menubgc').toggleClass('menubgctogle')
+    console.log(1)
+},
+// 传递视频播放位置id 
+videoClick(r, c, $event) {
+    this.selectCol = c;
+    this.selectRow = r;
+    let h5video='hvideo'+r+c
+    this.h5videoid=h5video
+    console.log($($event.target).parent())
+    console.log(r, c,$($event.target).parent().hasClass('videoClickColor'));
+    if ($($event.target).parent().hasClass('videoClickColor')) {
+        $($event.target).parent().removeClass('videoClickColor');
+    } else {
+        $('#videoPanel div[class*="videoClickColor"]').removeClass('videoClickColor');
+        $('#videoPanel>div').eq(r - 1).children('div').eq(c - 1).addClass('videoClickColor');
+    }
+    if(document.webkitIsFullScreen){
+        $(".Close_flex1").toggle();
+    }
+    },
  //树形节点点击
  handleNodeClick1(data, checked, indeterminate){
     let _this =this;
@@ -184,22 +270,22 @@ export default {
         _this.$root.bus.$emit('liveplay', data.strToken,data.streamprofile, data.name,data.strName, vid);
     }
  },
- // 区域
-	Regional(){
-		var root = this.$store.state.callport;
-		var url = root + "/api/v1/GetRegion?session="+this.$store.state.token;
-		// console.log(url,this.$store.state.callport,this.Useport,root);
-		this.$http.get(url).then(result=>{
-            console.log(result)
-			var oldarr=result.data.root;
-			
-			var oldarr1=result.data.src;
-			var dataroot=this.getchild(oldarr,oldarr1);
-			// console.log(dataroot);
-			this.camdata.push(dataroot);
-			// console.log(this.camdata)
-		})
-	},
+   // 区域
+ Regional(){
+    var root = this.$store.state.callport;
+    var url = root + "/api/v1/GetRegion?session="+this.$store.state.token;
+    // console.log(url,this.$store.state.callport,this.Useport,root);
+    this.$http.get(url).then(result=>{
+        console.log(result)
+        var oldarr=result.data.root;
+        
+        var oldarr1=result.data.src;
+        var dataroot=this.getchild(oldarr,oldarr1);
+        // console.log(dataroot);
+        this.camdata.push(dataroot);
+        // console.log(this.camdata)
+    })
+},
 	getchild(arr,arr1) {
 		for(var i in arr.cam){
 			if(!arr.cam[i].strName){
@@ -242,26 +328,84 @@ export default {
 		}
 		return arr;
 	},
-   // 传递视频播放位置id 
-    videoClick(r, c, $event) {
-        console.log(1)
-		this.selectCol = c;
-		this.selectRow = r;
-		 let h5video='hvideo'+r+c
-         this.h5videoid=h5video
-         console.log($($event.target).parent())
-		console.log(r, c,$($event.target).parent().hasClass('videoClickColor'));
-		if ($($event.target).parent().hasClass('videoClickColor')) {
-			$($event.target).parent().removeClass('videoClickColor');
-		} else {
-			$('#videoPanel div[class*="videoClickColor"]').removeClass('videoClickColor');
-			$('#videoPanel>div').eq(r - 1).children('div').eq(c - 1).addClass('videoClickColor');
-		}
-		if(document.webkitIsFullScreen){
-			$(".Close_flex1").toggle();
-		}
+
+    //关闭
+  	close(){
+		console.log("关闭");
+		let vid = 'h' + this.$data.selectRow + this.$data.selectCol;
+		let playid = 'hvideo' + this.$data.selectRow + this.$data.selectCol;
+		this.$root.bus.$emit('liveplayclose',vid,playid);
     },
-    
+    //历史记录
+    historyimg(){
+	   // 储存抓图
+	   let srcimg=[]
+	   let Screen=JSON.parse(localStorage.getItem("flatviewHistory"))
+		Screen.forEach((value,index,arr)=>{
+			let token=value.token
+			console.log(token )
+		// return false
+		    let Screenshotsurl="http://"+this.$store.state.Useport.ip+":"+this.$store.state.Useport.port + "/api/v1/GetImage?token=" +token + "&session=" + this.$store.state.token;
+			console.log(Screenshotsurl)
+			this.$http({
+				url: Screenshotsurl,
+				methods: 'get',
+				responseType: 'blob',//接收的值类型
+				}).then((res) => {
+				let blob=res.data
+				let src = window.URL.createObjectURL(blob)//转换为图片路径
+				console.log(src)
+					// srcimg.push(src)+"<br/>"
+					srcimg.splice(0,0,src) 
+				    this.$nextTick(() => {
+			        console.log(srcimg)
+			        let dataimg=Screen.map(function(item,index,array){
+						return {
+								hlsver: item.hlsver,
+								host: item.host,
+								label:item.label,
+								protocol:item.protocol,
+								rootpath:item.rootpath,
+								session:item.session,
+								token: item.token,
+                                videoid: item.videoid,
+                                Screenshotimg:srcimg[index]
+							}
+					 })
+				 this.viewHistory=dataimg
+				console.log(dataimg)
+			})
+		 }).catch(err=>{console.log(1)})
+	 })
+    },
+    // 历史记录播放
+	changePanelhistory(item) {
+		console.log(item)	
+		 let _this = this;
+		 let vid = 'h' + _this.$data.selectRow + _this.$data.selectCol;
+		 let playid = 'hvideo' + this.$data.selectRow + this.$data.selectCol;
+		 _this.$root.bus.$emit('liveplay', item.token,item.streamprofile, item.label,item.strName, vid);
+		var root = process.env.API_ROOT;
+		var wsroot = process.env.WS_HOST_ROOT;
+		if (root == undefined){
+			root = "http://"+this.$store.state.Useport.ip+":"+this.$store.state.Useport.port + window.location.pathname;
+		}
+	    let conf = {
+                videoid: 'playid',
+                protocol:"http:", //http: or https:
+                host: item.host, //localhost:8080
+                streamprofile:item.streamprofile, // {string} - stream profile, main/sub or other predefine transcoding profile
+                rootpath:item.rootpath, // '/'
+                token: item.token,
+                hlsver: item.hlsver, //v1 is for ts, v2 is for fmp4
+                session: item.session, //session got from login,
+                label: item.label,
+                };
+	   this.h5handler = new H5sPlayerRTC(conf);
+	   $("#"+this.rtcid).addClass("rtc_new");
+	   this.h5handler = new H5sPlayerWS(conf);
+	   this.h5handler.connect();
+	},
   }
 }
 </script>
@@ -294,11 +438,11 @@ export default {
     background-color: #151515;
 }
 .my-custom-menu {
-  --width: 400px;
-  --background:#303031;
-  --height:100% ;
-  margin-top:89px;
-  margin-bottom: 52px;
+    --width: 400px;
+    --background:#303031;
+    --height:100% ;
+    margin-top:89px;
+    margin-bottom: 52px;
  }
 .username img{
     display: block;
@@ -311,6 +455,62 @@ export default {
     color: #FFFFFF;
     font-size: 15px;
 }
+/* 头部退出登录 */
+.el-dropdown-menu{
+    background-color: #303031;
+    left: 10px !important;
+    border-radius:10px ;
+    padding: 10px;
+}
+.el-dropdown-menu>>>li{
+    cursor: pointer;
+    list-style: none;
+    background-color: #303031;
+    width:150px;
+    height:50px;
+    line-height: 50px;
+    color: #FFFFFF;
+  }
+.logout{
+    display: inline-block;
+    height: 17px;
+    width: 17px;
+    background: url('../assets/imags/tuichudenglu@2x.png') no-repeat;
+    background-size: 100% 100%;
+    margin-right: 10px;
+}
+.logbtn{
+    --color:#FFFFFF;
+}
+.about{
+    display: inline-block;
+    height: 17px;
+    width: 17px;
+    background: url('../assets/imags/guanyu-3@2x.png') no-repeat;
+    background-size: 100% 100%;
+    margin-right: 10px;
+}
+.demonstration {
+    display: block;
+    color: #61676e;
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+.my-custom-class .popover-wrapper .popover-content {
+    background: #222;
+    --height: 23px !important;
+}
+.my-custom-class {
+    --background: #222;
+  
+}
+.popover-content.sc-ion-popover-md{
+    height: 23px !important;
+}
+.popover-viewport.sc-ion-popover-md{
+     --height: 23px !important;
+}
+
 .ion-toolbar .ion-menu .menubgc{
     width: 22PX;
     height: 21PX;
@@ -384,6 +584,7 @@ div[name='flex'] {
     margin-right: 10px;
     margin:0 auto;
 }
+
 .footer-toobar .ionfooter-button{
     width: 900px;
     margin: 0 auto;
@@ -413,6 +614,7 @@ div[name='flex'] {
     padding-bottom: 20px;
     padding-right:25px;
 }
+
 /* menu */
 .menu-content{
     height: 20px;
@@ -484,5 +686,31 @@ div[name='flex'] {
 }
 #device span{
    font-size: 20px;
+}
+/*最近浏览 */
+.Recent-browse{
+   background-color:transparent;
+}
+.Recent-browse .RecentBrowse{
+   --background:transparent;
+   padding: 5px 0;
+   padding-left: 25px;
+ }
+.Recent-browse .browseLabel{
+  --color:#FFFFFF;
+  font-size: 15px; 
+  padding-top:20px;
+  margin: 0;
+}
+
+.Recent-browse .browseLabel2{
+   --color:#868686;
+   font-size: 15px;
+   padding-bottom:0px;
+   margin-bottom:35px ;
+}
+.browseimg{
+   --border-radius:20px !important;
+   width: 150px ;
 }
 </style>
