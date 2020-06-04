@@ -1,16 +1,1 @@
-{
-  "devDependencies": {
-    "cordova-plugin-whitelist": "1"
-  },
-  "cordova": {
-    "plugins": {
-      "cordova-plugin-whitelist": {}
-    },
-    "platforms": [
-      "ios"
-    ]
-  },
-  "dependencies": {
-    "cordova-ios": "^5.1.1"
-  }
-}
+{"devDependencies":{"cordova-plugin-whitelist":"1"},"cordova":{"plugins":{"cordova-plugin-whitelist":{}}}}

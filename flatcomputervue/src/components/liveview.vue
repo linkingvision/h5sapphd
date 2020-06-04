@@ -114,15 +114,69 @@
         </ion-menu>
       <!-- content -->
       <ion-content class="ion-content" color='#151515'>
-            <div class="flexvideo" id="videoPanel" slot="fixed">
-                <div name='flex' style="position: relative;" class="videoColor" v-for="r in rows" :key="r">
-                    <div class="palace" name="flex" v-for="c in cols" @contextmenu.prevent="stopVideo($event)" @click="videoClick(r,c,$event)" :key="c">
-                        <v-liveplayer v-bind:id="'h'+r+c" :h5id="'h'+r+c" :rows="rows" :cols="cols" :h5videoid="'hvideo'+r+c" >
-                        </v-liveplayer>
-                    </div> 
+          <ion-slides pager="true" :options="slideOpts">
+            <!-- 实时视频 -->
+            <ion-slide  class="videoslide">
+                <div class="flexvideo" id="videoPanel" slot="fixed">
+                    <div name='flex' style="position: relative;" class="videoColor" v-for="r in rows" :key="r">
+                        <div class="palace" name="flex" v-for="c in cols" @contextmenu.prevent="stopVideo($event)" @click="videoClick(r,c,$event)" :key="c">
+                            <v-liveplayer v-bind:id="'h'+r+c" :h5id="'h'+r+c" :rows="rows" :cols="cols" :h5videoid="'hvideo'+r+c" >
+                            </v-liveplayer>
+                        </div> 
+                    </div>
+                  
                 </div>
-            </div>
-           
+                
+                <!-- ptz menu -->
+                <ion-fab horizontal="start" slot="fixed" class="ptzmenu-left">
+                    <ion-fab-button class="btzleft">
+                        <img src="../assets/imags/luxiang.png" alt="">
+                    </ion-fab-button >
+                    <ion-fab-button class="btzleft">
+                         <img src="../assets/imags/xiangji@2x.png" alt="">
+                    </ion-fab-button>
+                    <ion-fab-button class="btzleft">
+                          <img src="../assets/imags/yuntai.png" alt="">
+                    </ion-fab-button>
+                 </ion-fab>
+                  <!-- ptz button -->
+                  <ion-fab slot="fixed" class="ptzbuton">
+                    <ion-grid>
+                      <ion-row>
+                          <ion-fab-button show>4</ion-fab-button>
+                      </ion-row>
+                    </ion-grid>  
+                     
+                   </ion-fab>
+                   <!--预定位 -->
+                   <ion-fab horizontal="end" slot="fixed" class="pretarget">
+                      <ion-fab-button class="pretargetBtn">预知位</ion-fab-button>
+                   </ion-fab>
+                   <!--ptz放大放小 -->
+                  <ion-fab horizontal="end" slot="fixed" class="pretargeting" :id='videofullid'>
+                    <ion-fab-button class="pretargeting-jia">
+                        <!-- <img src="../assets/imags/pretargeting-jia.png" alt=""> -->
+                          +
+                    </ion-fab-button>
+                    <ion-fab-button class="pretargeting-jia">
+                        <!-- <img src="../assets/imags/pretargeting-jian.png" alt="">  -->
+                         _
+                    </ion-fab-button>
+                  </ion-fab>
+             </ion-slide>
+             <!-- 上传 -->
+             <ion-slide>
+                 <div>上传</div>
+             </ion-slide>
+              <!--搜索 -->
+             <ion-slide>
+                 <div>搜索</div>
+             </ion-slide>
+               <!--全部-->
+             <ion-slide>
+                 <div>全部</div>
+            </ion-slide>
+          </ion-slides>
 	 </ion-content>
      <!-- footer -->
      <ion-footer class="ion-footer">
@@ -197,8 +251,12 @@ export default {
             label: 'strName',
             cam:"cam",
         },
-        viewHistory:''
-    }
+        viewHistory:'',
+        slideOpts:{
+           initialSlide: 1,
+            speed: 400
+          },
+      }
   },
   created(){
     this.historyimg()
@@ -434,8 +492,60 @@ videoClick(r, c, $event) {
     left: 50%;
     transform: translate(-50%,-50%);
 }
+/* 滑板 */
+ion-slides {
+  height: 100%;
+}
 .ion-content{
-    background-color: #151515;
+  background-color: #151515;
+}
+/* ptz定位 */
+.ptzmenu-left{
+   background-color: rgba(49, 49, 48, 0.5);
+   border-radius:22px;
+   height: 220px;
+   width: 44px;
+   padding:20px 0;
+   margin-left:50px;
+   border:1px solid #3C3C3C;
+  }
+.ptzmenu-left .btzleft{
+    --background:transparent;
+    --box-shadow:0;
+    height: 44px;
+    width: 44px;
+    margin:10px auto;
+ }
+.ptzmenu-left>>>img{
+    display:block;
+    width: 25px;
+    height: 25px;
+    margin: 0 auto;
+}
+/* 预定位 */
+.pretargeting{
+   background-color: rgba(49, 49, 48, 0.5);
+   border:1px solid #3C3C3C;
+   height:170px;
+   width:44px;
+   border-radius: 22px;
+}
+.pretarget{
+   padding-bottom:250px;
+   
+ }
+.pretargetBtn{
+    width: 50px;
+    height: 50px;
+    font-size:15px;
+   --background:transparent;
+}
+.pretargeting .pretargeting-jia{
+    --background:transparent;
+    --box-shadow:0;
+    width:25px;
+    font-size:30px;
+    margin:0 auto ;
 }
 .my-custom-menu {
     --width: 400px;
@@ -561,9 +671,8 @@ ion-segment-button {
 }
 .videoClickColor {
     /* background-color: #f55f23 !important; */
-	border: 1px solid #928e8e !important;
-	/* box-sizing: border-box; */
-    opacity: 0.50;
+	border: 1px solid #0B8CFA !important;
+    /* opacity: 0.50; */
 }
 div[name='flex'] {
     display: flex;
@@ -713,4 +822,5 @@ div[name='flex'] {
    --border-radius:20px !important;
    width: 150px ;
 }
+
 </style>

@@ -2,6 +2,7 @@
     <div class="h5container">
         <video class="h5video1" :id="videoid" muted webkit-playsinline playsinline style= "object-fit: fill;">
         </video>
+        <!-- 全屏 -->
         <ion-fab vertical="top" horizontal="end" slot="fixed" class="videofull" :id='videofullid'>
            <ion-fab-button class="collect">
                <img src="../assets/imags/collect@2x.png" alt="">
