@@ -62,6 +62,16 @@ export default {
             return false
         }
     });
+     this.$root.bus.$on('ptzcloud', function(vid,playid){
+       console.log(vid,playid,_this.videoid);
+        if(playid==_this.h5videoid){
+            console.log("deng")
+            // _this.playclose();
+        }else{
+            console.log("budeng")
+            return false
+        }
+    });
     $('#'+this.videofullid).addClass('videofullnone')
        
    },

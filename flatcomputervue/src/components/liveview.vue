@@ -17,9 +17,9 @@
                             </ion-button>
                         </el-dropdown-item>
                         <el-dropdown-item>
-                            <ion-button @click="about()" class="logbtn">
+                            <ion-button @click="about()" class="logbtn" >
                                <span class="about"></span>
-                               <ion-label color='#FFFFF'>关于</ion-label>
+                               <ion-label color='#FFFFF'  >关于</ion-label>
                             </ion-button>
                         </el-dropdown-item>
                     </el-dropdown-menu>
@@ -126,43 +126,101 @@
                     </div>
                   
                 </div>
-                
+                  
                 <!-- ptz menu -->
                 <ion-fab horizontal="start" slot="fixed" class="ptzmenu-left">
                     <ion-fab-button class="btzleft">
                         <img src="../assets/imags/luxiang.png" alt="">
                     </ion-fab-button >
                     <ion-fab-button class="btzleft">
-                         <img src="../assets/imags/xiangji@2x.png" alt="">
+                        <img src="../assets/imags/xiangji@2x.png" alt="">
                     </ion-fab-button>
-                    <ion-fab-button class="btzleft">
-                          <img src="../assets/imags/yuntai.png" alt="">
+                    <ion-fab-button class="btzleft" @click='ptzcloud()'>
+                        <img src="../assets/imags/yuntai.png" alt="">
                     </ion-fab-button>
-                 </ion-fab>
-                  <!-- ptz button -->
-                  <ion-fab slot="fixed" class="ptzbuton">
-                    <ion-grid>
-                      <ion-row>
-                          <ion-fab-button show>4</ion-fab-button>
-                      </ion-row>
-                    </ion-grid>  
-                     
-                   </ion-fab>
-                   <!--预定位 -->
-                   <ion-fab horizontal="end" slot="fixed" class="pretarget">
-                      <ion-fab-button class="pretargetBtn">预知位</ion-fab-button>
-                   </ion-fab>
-                   <!--ptz放大放小 -->
-                  <ion-fab horizontal="end" slot="fixed" class="pretargeting" :id='videofullid'>
-                    <ion-fab-button class="pretargeting-jia">
-                        <!-- <img src="../assets/imags/pretargeting-jia.png" alt=""> -->
-                          +
-                    </ion-fab-button>
-                    <ion-fab-button class="pretargeting-jia">
-                        <!-- <img src="../assets/imags/pretargeting-jian.png" alt="">  -->
-                         _
-                    </ion-fab-button>
-                  </ion-fab>
+                </ion-fab>
+                    <!-- ptz button -->
+                        <!-- 中心圆 -->
+                  <ion-content class="ptzcontent">  
+                    <ion-fab vertical="center" horizontal="end" slot="fixed" class="centre">
+                        <ion-fab-button class="porint"></ion-fab-button >
+                    </ion-fab>
+                        <!--速度滑条-->
+                    <ion-fab vertical="center" horizontal="end" slot="fixed" class="fab-range">
+                        <ion-label class="lablerange">0.5x</ion-label>
+                        <input type="range" orient="vertical" class="ne-range" name="slider" min="0.1" max="1" step="0.1" id="slider" value="0.5" oninput="change()" onchange="change()"/>
+                    </ion-fab>   
+                        <!--ptz方向按键-->
+                    <ion-fab vertical="center" horizontal="end" slot="fixed" class="ptzbuton">
+                        <ion-grid class="ptzbutongrid">
+                            <ion-row class="ptzrow-one">
+                                <ion-col size='auto' offset="5"  class="ptzrow-one-col">
+                                    <ion-fab-button class="fab-col-button"  show>
+                                        <img src="../assets/imags/top.png" alt="">
+                                    </ion-fab-button>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row class="ptzrow-two">
+                                <ion-col class="ptzbtn2" size='7'>
+                                    <ion-fab-button show class="fab-col-button">
+                                        <img src="../assets/imags/lefttop.png" alt="">
+                                    </ion-fab-button>
+                                </ion-col>
+                                <ion-col size='auto'>
+                                    <ion-fab-button class="fab-col-button" show>
+                                        <img src="../assets/imags/righttop.png" alt="">
+                                    </ion-fab-button>
+                                </ion-col>
+                                </ion-row>
+                                <ion-row class="ptzrow-center">
+                                    <ion-col>
+                                        <ion-fab-button class="fab-col-button" show>
+                                            <img src="../assets/imags/left.png" alt="">
+                                        </ion-fab-button>
+                                    </ion-col>
+                                    <ion-col size='auto'>
+                                        <ion-fab-button class="fab-col-button" show>
+                                            <img src="../assets/imags/right.png" alt="">
+                                        </ion-fab-button>
+                                    </ion-col>
+                                </ion-row>
+                                <ion-row >
+                                <ion-col class="ptzbtn2" size='7'>
+                                    <ion-fab-button show class="fab-col-button">
+                                        <img src="../assets/imags/leftbottom.png" alt="">
+                                    </ion-fab-button>
+                                </ion-col>
+                                <ion-col size='auto'>
+                                    <ion-fab-button class="fab-col-button" show>
+                                        <img src="../assets/imags/righttop.png" alt="">
+                                    </ion-fab-button>
+                                </ion-col>
+                            </ion-row>
+                            <ion-row class="ptzrow-end">
+                                <ion-col size='auto' offset="5" class="ptzrow-dowon">
+                                    <ion-fab-button class="fab-col-button" show>
+                                        <img src="../assets/imags/bottom.png" alt="">
+                                    </ion-fab-button>
+                                </ion-col>
+                            </ion-row>
+                        </ion-grid>  
+                    </ion-fab>
+                    <!--预定位 -->
+                    <ion-fab vertical="center"   horizontal="end" slot="fixed" class="pretarget">
+                        <ion-fab-button class="pretargetBtn">预知位</ion-fab-button>
+                    </ion-fab>
+                    <!--ptz放大放小 -->
+                    <ion-fab vertical="center" horizontal="end" slot="fixed" class="pretargeting">
+                        <ion-fab-button class="pretargeting-jia">
+                            <!-- <img src="../assets/imags/pretargeting-jia.png" alt=""> -->
+                            +
+                        </ion-fab-button>
+                        <ion-fab-button class="pretargeting-jia">
+                            <!-- <img src="../assets/imags/pretargeting-jian.png" alt="">  -->
+                            _
+                        </ion-fab-button>
+                    </ion-fab>
+                </ion-content>
              </ion-slide>
              <!-- 上传 -->
              <ion-slide>
@@ -229,6 +287,7 @@ export default {
    
   data(){
       return{
+        value: 0,
         customPopoverOptions:[],
         segmentChecked:'livie',
         visible: false,
@@ -253,7 +312,7 @@ export default {
         },
         viewHistory:'',
         slideOpts:{
-           initialSlide: 1,
+            initialSlide: 1,
             speed: 400
           },
       }
@@ -263,13 +322,26 @@ export default {
   },
   mounted(){
     this.Regional()
+    // $('.ptzmenu-left').hide()
+    $('.ptzcontent').hide()
  },
   methods:{
 
-  //  头部菜单
- segmentChanged(event){
-   console.log(event)
- },
+    //  头部菜单
+   segmentChanged(event){
+     console.log(event)
+  },
+    // ptz
+   ptzcloud(){
+      console.log(1)
+     $('.ptzcontent').toggle();
+     let vid = 'h' + this.$data.selectRow + this.$data.selectCol;
+     let playid = 'hvideo' + this.$data.selectRow + this.$data.selectCol;
+     this.$root.bus.$emit('ptzcloud',vid,playid);
+   },
+   about(){
+      console.log(1)
+  },
  logout(){
    this.$store.commit(types.LOGOUT);
    var root = this.$store.state.callport;
@@ -463,7 +535,8 @@ videoClick(r, c, $event) {
 	   $("#"+this.rtcid).addClass("rtc_new");
 	   this.h5handler = new H5sPlayerWS(conf);
 	   this.h5handler.connect();
-	},
+    },
+   
   }
 }
 </script>
@@ -522,6 +595,98 @@ ion-slides {
     height: 25px;
     margin: 0 auto;
 }
+.ptzcontent{
+    width: 100%;
+    height: 100%;
+}
+.ptzbuton{
+    width: 200px;
+    height: 200px;
+    border-radius:50% ;
+    background-color: rgba(49, 49, 48, 0.5);
+    margin-right: 100px;
+    margin-top:50px;
+}
+
+.ptzbtn2{
+    margin-left:20px;
+}
+.ptzrow-one{ 
+    
+    height: 25px;
+}
+.ptzrow-center{
+    margin: 10px 0;
+}
+.fab-col-button{
+    width: 23px;
+    height: 23px;
+    --background:transparent;
+    --box-shadow:0;
+}
+.ptzrow-end{
+    height: 25px;
+}
+/* 速度条 */
+.range{
+    width: 300px;
+    --bar-height:16px;
+    --bar-border-radius:8px;
+}
+.fab-range{
+    /* transform:rotate(-90deg); */
+    margin-right:380px;
+    margin-top:50px;
+}
+.fab-range input[type=range][orient=vertical]{
+	 writing-mode: bt-lr; /* IE */
+	 outline: 0;
+	 -webkit-appearance:slider-vertical;
+	 box-shadow: 0px 2px 10px 25px rgb(5, 5, 5) inset,
+                 0 0px 1px #0CE4AD inset; 
+     margin-top: 2px;
+     border-radius: 20px;
+	 width: 15px;
+	 height: 200px;
+	 background-color: rgba(252, 252, 19, 0.5)!important;
+     border: 1PX solid #0CE4AD;
+	 padding: 0 5px;
+     background: -webkit-linear-gradient(top, rgb(5, 156, 250), rgb(5, 156, 250)) 0% 0% / 27% 100% no-repeat;
+    
+    }
+.fab-range input[type=range]::-webkit-slider-thumb {
+	-webkit-appearance:none;
+     -moz-appearance: none;
+     appearance: none;
+	outline: none;
+	margin-left: -10px !important; 
+	border-radius: 50%;
+	box-shadow:0 0px 2px;/*添加底部阴影*/
+	background: url('../assets/imags/righttop.png') ;
+	/* cursor: default; */
+	
+ }
+input[type=range]::-webkit-slider-runnable-track {
+	
+	width: 15px;
+    border-radius: 20px; /*将轨道设为圆角的*/
+	/* box-shadow: 0 1px 1px #4FBAFF, inset 0 .12em .12em #4FBAFF; */
+	background-color:rgba(49, 49, 48, 0);
+    border:1px solid  #0CE4AD;
+}
+.fab-range .lablerange{
+    color: #0BEBAC;
+}
+/* 中心圆 */
+.centre{
+   margin-right: 173px;
+   margin-top: 125px;
+}
+.porint{
+    width: 50px;
+    height: 50px;
+    --background: rgba(185, 185, 177, 0.5);
+  }
 /* 预定位 */
 .pretargeting{
    background-color: rgba(49, 49, 48, 0.5);
@@ -529,16 +694,16 @@ ion-slides {
    height:170px;
    width:44px;
    border-radius: 22px;
+   margin-right: 8px;
 }
 .pretarget{
-   padding-bottom:250px;
-   
- }
+  margin-top:-110px;
+}
 .pretargetBtn{
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
     font-size:15px;
-   --background:transparent;
+    --background: rgba(49, 49, 48, 0.5);
 }
 .pretargeting .pretargeting-jia{
     --background:transparent;

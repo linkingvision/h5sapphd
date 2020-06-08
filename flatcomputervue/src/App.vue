@@ -1,6 +1,7 @@
 <template>
   <div id="app">
     <!-- <img src="./assets/logo.png"> -->
+    <!-- <router-view></router-view> -->
       <ion-app>
         <ion-vue-router />
       </ion-app>
