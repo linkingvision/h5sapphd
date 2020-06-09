@@ -128,7 +128,7 @@
                 </div>
                   
                 <!-- ptz menu -->
-                <ion-fab horizontal="start" slot="fixed" class="ptzmenu-left">
+                <ion-fab horizontal="start" slot="fixed" class="ptzmenu">
                     <ion-fab-button class="btzleft">
                         <img src="../assets/imags/luxiang.png" alt="">
                     </ion-fab-button >
@@ -147,15 +147,15 @@
                     </ion-fab>
                         <!--速度滑条-->
                     <ion-fab vertical="center" horizontal="end" slot="fixed" class="fab-range">
-                        <ion-label class="lablerange">0.5x</ion-label>
-                        <input type="range" orient="vertical" class="ne-range" name="slider" min="0.1" max="1" step="0.1" id="slider" value="0.5" oninput="change()" onchange="change()"/>
+                        <ion-label class="lablerange" >{{labelinputvalue}}x</ion-label>
+                        <input type="range" orient="vertical" class="ne-range" name="slider" min="0.1" max="1" step="0.1" id="slider" value="0.5"  @input="change($event)" @change="change($event)"/>
                     </ion-fab>   
                         <!--ptz方向按键-->
                     <ion-fab vertical="center" horizontal="end" slot="fixed" class="ptzbuton">
                         <ion-grid class="ptzbutongrid">
                             <ion-row class="ptzrow-one">
                                 <ion-col size='auto' offset="5"  class="ptzrow-one-col">
-                                    <ion-fab-button class="fab-col-button"  show>
+                                    <ion-fab-button class="fab-col-button"  show  @touchstart ="PtzActionUp($event)" @touchend="PtzActionStop($event)">
                                         <img src="../assets/imags/top.png" alt="">
                                     </ion-fab-button>
                                 </ion-col>
@@ -174,12 +174,12 @@
                                 </ion-row>
                                 <ion-row class="ptzrow-center">
                                     <ion-col>
-                                        <ion-fab-button class="fab-col-button" show>
+                                        <ion-fab-button class="fab-col-button" show @touchstart ="PtzActionLeft($event)" @touchend="PtzActionStop($event)">
                                             <img src="../assets/imags/left.png" alt="">
                                         </ion-fab-button>
                                     </ion-col>
                                     <ion-col size='auto'>
-                                        <ion-fab-button class="fab-col-button" show>
+                                        <ion-fab-button class="fab-col-button" show @touchstart ="PtzActionRight($event)" @touchend="PtzActionStop($event)">
                                             <img src="../assets/imags/right.png" alt="">
                                         </ion-fab-button>
                                     </ion-col>
@@ -198,7 +198,7 @@
                             </ion-row>
                             <ion-row class="ptzrow-end">
                                 <ion-col size='auto' offset="5" class="ptzrow-dowon">
-                                    <ion-fab-button class="fab-col-button" show>
+                                    <ion-fab-button class="fab-col-button" show  @touchstart ="PtzActionDown($event)" @touchend="PtzActionStop($event)">
                                         <img src="../assets/imags/bottom.png" alt="">
                                     </ion-fab-button>
                                 </ion-col>
@@ -211,17 +211,17 @@
                     </ion-fab>
                     <!--ptz放大放小 -->
                     <ion-fab vertical="center" horizontal="end" slot="fixed" class="pretargeting">
-                        <ion-fab-button class="pretargeting-jia">
+                        <ion-fab-button class="pretargeting-jia"  @touchstart ="PtzActionZoomIn($event)" @touchend="PtzActionStop($event)">
                             <!-- <img src="../assets/imags/pretargeting-jia.png" alt=""> -->
                             +
                         </ion-fab-button>
-                        <ion-fab-button class="pretargeting-jia">
+                        <ion-fab-button class="pretargeting-jia" @touchstart ="PtzActionZoomOut($event)" @touchend="PtzActionStop($event)">
                             <!-- <img src="../assets/imags/pretargeting-jian.png" alt="">  -->
                             _
                         </ion-fab-button>
                     </ion-fab>
                 </ion-content>
-             </ion-slide>
+             </ion-slide> 
              <!-- 上传 -->
              <ion-slide>
                  <div>上传</div>
@@ -262,8 +262,8 @@
      <!-- <ion-router-outlet main></ion-router-outlet> -->
    </div>
 </template>
-<script>
-   import { menuController } from '@ionic/core';
+<script type="text/javascript"> 
+    import { menuController, configFromSession } from '@ionic/core';
     window.menuController = menuController;
 </script>
 <script>
@@ -287,18 +287,20 @@ export default {
    
   data(){
       return{
-        value: 0,
         customPopoverOptions:[],
+        labelinputvalue:0.5,
         segmentChecked:'livie',
         visible: false,
         selectCol: 1,
         selectRow: 1,
         rc:13,
+        h5id:'',
         rows: 2,
         cols: 2,
         h5videoid:'',
         data:[],
         camdata:[],
+        tokenshow:'',
         defaultProps: {
             children: 'children',
             label: 'label',
@@ -322,8 +324,9 @@ export default {
   },
   mounted(){
     this.Regional()
-    // $('.ptzmenu-left').hide()
+    // $('.ptzmenu').hide()
     $('.ptzcontent').hide()
+    
  },
   methods:{
 
@@ -331,13 +334,14 @@ export default {
    segmentChanged(event){
      console.log(event)
   },
+  change(e){
+        this.labelinputvalue=e.target.value
+        console.log(e.target.value)
+    },
     // ptz
-   ptzcloud(){
+ ptzcloud(){
       console.log(1)
-     $('.ptzcontent').toggle();
-     let vid = 'h' + this.$data.selectRow + this.$data.selectCol;
-     let playid = 'hvideo' + this.$data.selectRow + this.$data.selectCol;
-     this.$root.bus.$emit('ptzcloud',vid,playid);
+      $('.ptzcontent').toggle();
    },
    about(){
       console.log(1)
@@ -374,6 +378,7 @@ export default {
 videoClick(r, c, $event) {
     this.selectCol = c;
     this.selectRow = r;
+    this.h5id='h'+r+c;
     let h5video='hvideo'+r+c
     this.h5videoid=h5video
     console.log($($event.target).parent())
@@ -393,12 +398,32 @@ videoClick(r, c, $event) {
     let _this =this;
     console.log(data)
     // var main="main"
+   _this.tokenshow=data.strToken
     if (data.strToken) {
         let vid = 'h' + _this.$data.selectRow + _this.$data.selectCol;
         console.log("----------------------", data.strToken,data.streamprofile, data.name,data.strName, vid);
         // return false;
         _this.$root.bus.$emit('liveplay', data.strToken,data.streamprofile, data.name,data.strName, vid);
     }
+     setTimeout(function(){
+                    for(var i=1;i<=this.rows;i++){
+                        for(var c=1;c<=this.cols;c++){
+                            var video= document.getElementById("hvideo"+i+c)
+                            console.log('video.paused',video);
+                            if(video.paused){
+                                this.selectCol = c;
+                                this.selectRow =i;
+                                $('#videoPanel div[class*="videoClickColor"]').removeClass('videoClickColor');
+                                $("#h"+this.selectRow+this.selectCol).addClass('videoClickColor');
+                                console.log('video.paused1',video.paused,i,c);
+                                return false
+                            }else{
+                                console.log('video.paused1',video.paused);
+                            }
+                        }
+                    }
+                    
+                }.bind(this),1000)
  },
    // 区域
  Regional(){
@@ -465,6 +490,49 @@ videoClick(r, c, $event) {
 		let vid = 'h' + this.$data.selectRow + this.$data.selectCol;
 		let playid = 'hvideo' + this.$data.selectRow + this.$data.selectCol;
 		this.$root.bus.$emit('liveplayclose',vid,playid);
+    },
+    PtzActionZoomIn(event)
+  {
+    console.log("PtzActionZoomIn");
+    this.PtzActionfather('zoomin');
+     event.stopPropagation();
+	 event.preventDefault()
+   },
+    PtzActionZoomOut(event)
+   {
+    this.PtzActionfather('zoomout');
+   },
+    PtzActionLeft(event)
+   {
+    this.PtzActionfather('left');
+    },
+    PtzActionRight(event)
+   {
+    this.PtzActionfather('right');
+   },
+    PtzActionUp(event)
+   {
+    this.PtzActionfather('up');
+    event.stopPropagation();
+	event.preventDefault()
+  },
+  PtzActionDown(event)
+  {
+    this.PtzActionfather('down');
+  },
+  PtzActionStop(event)
+  {
+    console.log("PtzActionStop");
+    this.PtzActionfather('stop');
+  },
+   // PTZ方法   
+  PtzActionfather(action)
+  {    
+    console.log(1)
+     let vid = 'h' + this.$data.selectRow + this.$data.selectCol;
+     let playid = 'hvideo' + this.$data.selectRow + this.$data.selectCol;
+     let inputvalue=this.labelinputvalue
+     this.$root.bus.$emit('ptzcloud', vid,playid,action,inputvalue);
     },
     //历史记录
     historyimg(){
@@ -573,7 +641,7 @@ ion-slides {
   background-color: #151515;
 }
 /* ptz定位 */
-.ptzmenu-left{
+.ptzmenu{
    background-color: rgba(49, 49, 48, 0.5);
    border-radius:22px;
    height: 220px;
@@ -582,14 +650,14 @@ ion-slides {
    margin-left:50px;
    border:1px solid #3C3C3C;
   }
-.ptzmenu-left .btzleft{
+.ptzmenu .btzleft{
     --background:transparent;
     --box-shadow:0;
     height: 44px;
     width: 44px;
     margin:10px auto;
  }
-.ptzmenu-left>>>img{
+.ptzmenu>>>img{
     display:block;
     width: 25px;
     height: 25px;
@@ -661,7 +729,9 @@ ion-slides {
 	outline: none;
 	margin-left: -10px !important; 
 	border-radius: 50%;
-	box-shadow:0 0px 2px;/*添加底部阴影*/
+	box-shadow: 25px 25px 25px 25px #0EDBAD inset,
+	            0 0px 1px rgba(0, 0, 0, 0.986) inset;; /*添加底部阴影*/
+	border: solid 1px #0EDBAD;
 	background: url('../assets/imags/righttop.png') ;
 	/* cursor: default; */
 	
@@ -676,6 +746,8 @@ input[type=range]::-webkit-slider-runnable-track {
 }
 .fab-range .lablerange{
     color: #0BEBAC;
+    position: absolute;
+    right:30px;
 }
 /* 中心圆 */
 .centre{
@@ -704,6 +776,7 @@ input[type=range]::-webkit-slider-runnable-track {
     height: 60px;
     font-size:15px;
     --background: rgba(49, 49, 48, 0.5);
+    --color: #0EDBAD;
 }
 .pretargeting .pretargeting-jia{
     --background:transparent;
