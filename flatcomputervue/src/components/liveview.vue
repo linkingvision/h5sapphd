@@ -114,7 +114,7 @@
         </ion-menu>
       <!-- content -->
       <ion-content class="ion-content" color='#151515'>
-          <ion-slides pager="true" :options="slideOpts">
+          <ion-slides pager="true" :options="slideOpts"  @ionSlideNextStart='slidechangenone()'  @ionSlideReachStart='slidechangeblock()' >
             <!-- 实时视频 -->
             <ion-slide  class="videoslide">
                 <div class="flexvideo" id="videoPanel" slot="fixed">
@@ -155,7 +155,7 @@
                         <ion-grid class="ptzbutongrid">
                             <ion-row class="ptzrow-one">
                                 <ion-col size='auto' offset="5"  class="ptzrow-one-col">
-                                    <ion-fab-button class="fab-col-button"  show  @touchstart ="PtzActionUp($event)" @touchend="PtzActionStop($event)">
+                                    <ion-fab-button class="fab-col-button"  show  id='fabptzup'>
                                         <img src="../assets/imags/top.png" alt="">
                                     </ion-fab-button>
                                 </ion-col>
@@ -192,7 +192,7 @@
                                 </ion-col>
                                 <ion-col size='auto'>
                                     <ion-fab-button class="fab-col-button" show>
-                                        <img src="../assets/imags/righttop.png" alt="">
+                                        <img src="../assets/imags/rightbottom.png" alt="">
                                     </ion-fab-button>
                                 </ion-col>
                             </ion-row>
@@ -224,7 +224,7 @@
              </ion-slide> 
              <!-- 上传 -->
              <ion-slide>
-                 <div>上传</div>
+                 <ion-uploading></ion-uploading>
              </ion-slide>
               <!--搜索 -->
              <ion-slide>
@@ -262,7 +262,8 @@
      <!-- <ion-router-outlet main></ion-router-outlet> -->
    </div>
 </template>
-<script type="text/javascript"> 
+<script type="text/javascript">
+ 
     import { menuController, configFromSession } from '@ionic/core';
     window.menuController = menuController;
 </script>
@@ -279,10 +280,12 @@ import {H5siOS,H5sPlayerCreate} from '../assets/js/h5splayerhelper.js'
 import {H5sPlayerWS,H5sPlayerHls,H5sPlayerRTC} from '../assets/js/h5splayer.js'
 import $ from 'jquery'
 import Liveplayer from './liveplayer'
+import Uploading from './uploading'
 export default {
   name:"liveview",
   components: {
         'v-liveplayer': Liveplayer,
+        'ion-uploading': Uploading
     },
    
   data(){
@@ -326,10 +329,20 @@ export default {
     this.Regional()
     // $('.ptzmenu').hide()
     $('.ptzcontent').hide()
-    
+    // $('.ion-footer').hide()
+    $('#fabptzup').on('touchstart',function(){
+      alert('可以')
+    })
+   
  },
   methods:{
-
+    // 滚动条
+   slidechangenone(){
+      $('.ion-footer').hide()
+   },
+   slidechangeblock(){
+      $('.ion-footer').show() 
+   },
     //  头部菜单
    segmentChanged(event){
      console.log(event)
@@ -606,6 +619,7 @@ videoClick(r, c, $event) {
     },
    
   }
+  
 }
 </script>
 
@@ -691,6 +705,9 @@ ion-slides {
     height: 23px;
     --background:transparent;
     --box-shadow:0;
+}
+.fab-col-button img{
+    display: block;
 }
 .ptzrow-end{
     height: 25px;

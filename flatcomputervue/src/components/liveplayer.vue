@@ -90,9 +90,7 @@
             </ion-fab>
             <!--预定位 -->
             <ion-fab vertical="center"   horizontal="end" slot="fixed" class="pretarget">
-                <IonVuePage :title="'Alert'">
                 <ion-fab-button class="pretargetBtn" @click="presentAlert">预知位</ion-fab-button>
-                </IonVuePage>
             </ion-fab>
             <!--ptz放大放小 -->
             <ion-fab vertical="center" horizontal="end" slot="fixed" class="pretargeting">
