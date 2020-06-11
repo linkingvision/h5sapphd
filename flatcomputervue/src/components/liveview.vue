@@ -114,7 +114,7 @@
         </ion-menu>
       <!-- content -->
       <ion-content class="ion-content" color='#151515'>
-          <ion-slides pager="true" :options="slideOpts"  @ionSlideNextStart='slidechangenone()'  @ionSlideReachStart='slidechangeblock()' >
+          <ion-slides pager="true" :options="slideOpts" @ionSlideNextStart='slidechangenone()'  @ionSlideReachStart='slidechangeblock()'>
             <!-- 实时视频 -->
             <ion-slide  class="videoslide">
                 <div class="flexvideo" id="videoPanel" slot="fixed">
@@ -207,7 +207,7 @@
                     </ion-fab>
                     <!--预定位 -->
                     <ion-fab vertical="center"   horizontal="end" slot="fixed" class="pretarget">
-                        <ion-fab-button class="pretargetBtn">预知位</ion-fab-button>
+                        <ion-fab-button class="pretargetBtn">预支位</ion-fab-button>
                     </ion-fab>
                     <!--ptz放大放小 -->
                     <ion-fab vertical="center" horizontal="end" slot="fixed" class="pretargeting">
@@ -285,7 +285,7 @@ export default {
   name:"liveview",
   components: {
         'v-liveplayer': Liveplayer,
-        'ion-uploading': Uploading
+        'ion-uploading':Uploading
     },
    
   data(){
@@ -329,14 +329,13 @@ export default {
     this.Regional()
     // $('.ptzmenu').hide()
     $('.ptzcontent').hide()
-    // $('.ion-footer').hide()
     $('#fabptzup').on('touchstart',function(){
       alert('可以')
     })
    
  },
   methods:{
-    // 滚动条
+     // 滚动条
    slidechangenone(){
       $('.ion-footer').hide()
    },

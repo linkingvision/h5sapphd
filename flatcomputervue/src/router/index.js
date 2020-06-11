@@ -2,7 +2,8 @@ import Vue from 'vue'
 // import Router from 'vue-router'
 import Login from '@/components/login.vue'
 import Liveview from '@/components/liveview.vue'
-// import uploading from '@/components/sliderMenu/uploading.vue'
+import Uploadoperation from '@/components/sliderMenu/uploadoperation.vue'
+import Videointercom from '@/components/sliderMenu/Videointercom.vue'
 // import store from '@/store/index'
 // import * as types from '@/store/types'
 import { IonicVueRouter } from '@ionic/vue'
@@ -25,8 +26,12 @@ export default new IonicVueRouter({
       component:Liveview,
     },
     {
-      path:'/Liveview',
-      component:Liveview,
+      path:'/Uploadoperation',
+      component:Uploadoperation,
+    },
+    {
+      path:'/Videointercom',
+      component:Videointercom,
     },
   ]
 })
