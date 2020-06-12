@@ -11,21 +11,23 @@
                             <img src="../../assets/imags/uploadimg2@2x.png" alt="">
                         </ion-avatar>
                         <ion-title class="video-title">视频上传</ion-title>
-                        <ion-avatar slot="end" class="main-end">
-                            <img src="../../assets/imags/fanhui-4@2x.png" alt="">
-                        </ion-avatar>
+                        <ion-button class="backbtn" href='#/liveview' component='Liveview'>
+                            <ion-avatar slot="end" class="main-end" >
+                                <img src="../../assets/imags/fanhui-4@2x.png" alt="">
+                            </ion-avatar>
+                        </ion-button>
                     </ion-item>
                 </ion-col>
             </ion-row>
              <!-- 内容主题 -->
             <ion-row>
-                <ion-col size='8' offset="2" class="videoplay-col">
-                    <video src="" class="videoplay"></video>
+                <ion-col size='7' offset="3" class="videoplay-col">
+                   <video src="" class="videoplay"></video>
                 </ion-col>
             </ion-row>
             <!--操作部分 -->
             <ion-row>
-                <ion-col size='5' offset="2">
+                <ion-col size='4' offset="3">
                     <ion-item lines='none' class="selectinput">
                         <ion-label class="videolabel">Video Codec</ion-label>
                         <el-autocomplete v-model="state" :fetch-suggestions="querySearchAsync" placeholder="请输入内容" @select="handleSelect" class="autocomplete">
@@ -97,9 +99,8 @@ export default {
    height: 22px;
    border: none;
 }
-
 .upload-content{
-    height: 100%;
+    /* height: 100%; */
     --background:transparent;
     --padding-top: 22px;
 }
@@ -124,7 +125,14 @@ export default {
     width: 45px;
     height: 54px;
     --border-radius:none;
-    margin-right: 47px; 
+}
+.backbtn{
+    width:70px;
+    height:60px;
+    --background: transparent;
+    --box-shadow:0;
+    --background-activated:#0EDBAD;
+    margin-right: 45px;
 }
 .main-end>>>img{
     display:block;
@@ -146,9 +154,8 @@ export default {
 }
 .videoplay{
     width:100%;
-    /* height: 100%; */
-    height: 323px;
-    background-color: #272728;
+    /* height: 250px; */
+     background-color: #272728;
     border-radius:20px;
 }
 .videolabel{
@@ -156,6 +163,7 @@ export default {
     margin: 8px;
 }
 .selectinput{
+    
    --background:transparent ;
    --min-height:15px;
    --color:#D0D0D0;
@@ -198,7 +206,7 @@ export default {
   /* width: 200px; */
   background-color: transparent !important;
   border: 1px solid #676767;
-  margin-right: 100px;
+  /* margin-right: 100px; */
 } 
 ul li{
     list-style: none;

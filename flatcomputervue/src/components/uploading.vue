@@ -27,7 +27,9 @@
                    <ion-col></ion-col>
                </ion-row>
             </ion-grid>
-            <ion-item class="footer"></ion-item>
+            <ion-item class="footer">
+                <div class="footerbgc"></div>
+            </ion-item>
         </ion-content>
     </div>
 </template>
