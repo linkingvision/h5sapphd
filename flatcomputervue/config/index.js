@@ -10,12 +10,20 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {},
+    proxyTable: {
+      // '/api': { 
+      //   target: ' http://192.168.100.142:8081', //源地址 
+      //   changeOrigin: true, //是否跨域
+      //   pathRewrite: { 
+      //    '^/api': ' http://192.168.100.142:8081' //路径重写 
+      //    } 
+      //  } 
+    },
 
     // Various Dev Server settings
     host: 'localhost', // can be overwritten by process.env.HOST
     port: 8081, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
-    autoOpenBrowser: false,
+    autoOpenBrowser: true,
     errorOverlay: true,
     notifyOnErrors: true,
     poll: false, // https://webpack.js.org/configuration/dev-server/#devserver-watchoptions-

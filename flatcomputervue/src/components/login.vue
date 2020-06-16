@@ -24,7 +24,7 @@
                     <ion-label><img src="../assets/imags/password@2x.png" alt=""></ion-label>
                     <ion-input  placeholder="请输入密码" type='password' :value='Useport.psw'  @ionChange="Useport.psw=$event.target.value"></ion-input>
                   </ion-item>
-                
+                 
                   <ion-item color='#42b983' class="serveconfig" lines="none" @click="dropdown">
                     <ion-label>服务器配置</ion-label>
                     <ion-thumbnail slot="end" class="ion-dropdown">
@@ -49,10 +49,18 @@
                       </ion-col>
                  </ion-row>
                  <ion-row>
-                    <ion-item color='#42b983' lines="none">
-                      <ion-label>记住用户名和密码</ion-label>
-                      <ion-checkbox slot="start" checked :value="checked" @ionChange="checked=$event.target.checked"></ion-checkbox>
-                    </ion-item>
+                   <ion-col size='auto' class="logcol">
+                      <ion-item color='#42b983' lines="none" class="remember-item">
+                        <ion-label>记住用户名和密码</ion-label>
+                        <ion-checkbox slot="start" checked :value="checked" @ionChange="checked=$event.target.checked" class="rememberpass"></ion-checkbox>
+                      </ion-item>
+                    </ion-col>
+                    <ion-col size='auto' class="logcol">
+                      <ion-item color='#42b983' lines="none">
+                        <ion-label>HTTPS</ion-label>
+                        <ion-checkbox slot="start" checked  :value="checkedhttps" @ionChange="checkedhttps=$event.target.checked" class="rememberpass"></ion-checkbox>
+                      </ion-item>
+                    </ion-col>
                  </ion-row>
                   <!-- declare  var $: any; -->
                  <ion-row class="ion-loginbutton">
@@ -83,6 +91,7 @@ export default {
    data(){
     return{
     checked:true,
+    checkedhttps:true,
     callport:this.$store.state.callport,//使用端口号//使用端口号
     value:'hah',
     session:'',
@@ -93,6 +102,7 @@ export default {
         user:'',
         psw:''
         }],//端口号
+     protocol:'',
     }
   },
   created(){
@@ -113,7 +123,7 @@ export default {
       console.log(this.Useport.psw)
       console.log(this.Useport.user)
       console.log(this.checked)
-       // 保存账号
+      // 保存账号
         let username=this.Useport.user
         // 保存的密码
         let password=this.Useport.psw
@@ -137,11 +147,16 @@ export default {
         this.$store.commit(types.USEPORTUSER, this.Useport.user);
         this.$store.commit(types.USEPORTPSW, this.Useport.psw);
         let _this =this;
-        var url = "http://"+_this.Useport.ip+":"+_this.Useport.port+"/"
+        if(_this.checkedhttps==true){
+          this.protocol='https:'
+        }else{
+          this.protocol='http:'
+        }
+        this.$store.commit(types.PROTOCOL, this.protocol);
+        var url =_this.protocol+ "//"+_this.Useport.ip+":"+_this.Useport.port
         this.callport=url;
         this.$store.commit(types.USEPORT, url);
         var baseurl = _this.callport + "/api/v1/Login?user=" +_this.Useport.user + "&password=" + $.md5(_this. Useport.psw);
-        //   return false
         console.log(baseurl)
         this.$http.get(baseurl).then(result => {
             console.log(result)
@@ -325,7 +340,7 @@ img{
 }
 .ion-loginbutton .ion-activatable{
   position: absolute;
-  top:-10px;
+  top:-8px;
   right: 15px;
   width:60px;
   height: 60px;
@@ -334,5 +349,22 @@ img{
 .ion-loginbutton img{
   width: 100%;
   height: 100%;
+}
+.rememberpass{
+  --background:#5D5D5D;
+  --border-radius:50%;
+  --background-checked:#5D5D5D;
+  --border-color:#5D5D5D;
+  --border-color-checked:#5D5D5D;
+  --checkmark-color:#42b983;
+  padding: 0;
+  margin-right:20px;
+}
+.remember-item{
+  padding:0;
+}
+.logcol{
+  height:40px;
+  margin-right:10px ;
 }
 </style>

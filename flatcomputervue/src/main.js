@@ -11,7 +11,7 @@ import Ionic from '@ionic/vue';
 import 'lib-flexible/flexible'
 import $ from 'jquery'
 import '@ionic/core/css/ionic.bundle.css';
-
+axios.defaults.baseURL = '/apis'
 Vue.use(Vuex);
 Vue.use(Ionic);
 // const bus = new Vue()

@@ -28,9 +28,9 @@
                     </ion-button>
                 </ion-col>
                 <ion-col size='3' offset="7">
-                   <ion-button class="createdUser">
+                   <!-- <ion-button class="createdUser">
                       <ion-label>创建用户</ion-label>
-                   </ion-button>
+                   </ion-button> -->
                 </ion-col>
              </ion-row>
              <ion-row>

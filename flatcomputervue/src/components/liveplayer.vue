@@ -203,7 +203,7 @@ export default {
             var root = process.env.API_ROOT;
             var wsroot = process.env.WS_HOST_ROOT;
             if (root == undefined){
-                root = "http://"+this.$store.state.Useport.ip+":"+this.$store.state.Useport.port + window.location.pathname;
+                root = this.$store.state.protocol+"//"+this.$store.state.Useport.ip+":"+this.$store.state.Useport.port + window.location.pathname;
             }
             if (wsroot == undefined)
             {
@@ -211,7 +211,7 @@ export default {
             }
             let conf = {
                 videoid: this.videoid,
-                protocol:"http:", //http: or https:
+                protocol:this.$store.state.protocol, //http: or https:
                 host: wsroot, //localhost:8080
                 streamprofile: streamprofile, // {string} - stream profile, main/sub or other predefine transcoding profile
                 rootpath: '/', // '/'
@@ -234,7 +234,7 @@ export default {
                // 历史记录
                 let confitem = {
                     videoid: this.videoid,
-                    protocol:"http:", //http: or https:
+                    protocol:"window.location.protocol", //http: or https:
                     host: wsroot, //localhost:8080
                     streamprofile: streamprofile, // {string} - stream profile, main/sub or other predefine transcoding profile
                     rootpath: '/', // '/'
@@ -413,7 +413,7 @@ export default {
         let _this =this;
         var root = process.env.API_ROOT;
         if (root == undefined){
-           root = "http://"+this.$store.state.Useport.ip+":"+this.$store.state.Useport.port + window.location.pathname;
+           root = this.$store.state.protocol+"//"+this.$store.state.Useport.ip+":"+this.$store.state.Useport.port + window.location.pathname;
         }
 
         var ptzcmd = "token=" + this.currtoken + "&action=" + action + "&speed="+this.Preset_value+"";

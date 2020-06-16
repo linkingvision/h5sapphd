@@ -5,6 +5,7 @@ export const USEPORTIP="Useportip"
 export const USEPORTPORT="Useportport"
 export const USEPORTUSER="Useportuser"
 export const USEPORTPSW="Useportpsw"
+export const PROTOCOL="protocol"
 
 export const USEPORT="Useport"
 export const RADIO="radio"

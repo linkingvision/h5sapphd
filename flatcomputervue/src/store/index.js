@@ -26,6 +26,7 @@ export default new Vuex.Store({
      root:null,
      token:null,
      users:null,
+     protocol:'',
 },
   mutations: {
     [types.USEPORT]: (state, data) => {
@@ -53,6 +54,11 @@ export default new Vuex.Store({
       //console.log(data);
       localStorage.h5appportpsw= data
       state.Useport.psw=data
+    },
+    [types.PROTOCOL]: (state, data) => {
+      //console.log(data);
+      localStorage.h5appprotocol= data
+      state.protocol=data
     },
    //不知道
     [RECEIVE_PETSINFO](state,{petsInfo}){

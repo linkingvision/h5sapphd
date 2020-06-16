@@ -326,14 +326,14 @@ export default {
     this.historyimg()
   },
   mounted(){
+    console.log(this.$store.state.protocol)
     this.Regional()
     // $('.ptzmenu').hide()
     $('.ptzcontent').hide()
     $('#fabptzup').on('touchstart',function(){
       alert('可以')
     })
-   
- },
+   },
   methods:{
      // 滚动条
    slidechangenone(){
@@ -436,7 +436,7 @@ videoClick(r, c, $event) {
                     }
                     
                 }.bind(this),1000)
- },
+},
    // 区域
  Regional(){
     var root = this.$store.state.callport;
@@ -445,7 +445,6 @@ videoClick(r, c, $event) {
     this.$http.get(url).then(result=>{
         console.log(result)
         var oldarr=result.data.root;
-        
         var oldarr1=result.data.src;
         var dataroot=this.getchild(oldarr,oldarr1);
         // console.log(dataroot);
@@ -555,7 +554,7 @@ videoClick(r, c, $event) {
 			let token=value.token
 			console.log(token )
 		// return false
-		    let Screenshotsurl="http://"+this.$store.state.Useport.ip+":"+this.$store.state.Useport.port + "/api/v1/GetImage?token=" +token + "&session=" + this.$store.state.token;
+		    let Screenshotsurl=this.$store.state.callport+ "/api/v1/GetImage?token=" +token + "&session=" + this.$store.state.token;
 			console.log(Screenshotsurl)
 			this.$http({
 				url: Screenshotsurl,
@@ -598,7 +597,7 @@ videoClick(r, c, $event) {
 		var root = process.env.API_ROOT;
 		var wsroot = process.env.WS_HOST_ROOT;
 		if (root == undefined){
-			root = "http://"+this.$store.state.Useport.ip+":"+this.$store.state.Useport.port + window.location.pathname;
+			root = this.$store.state.callport + window.location.pathname;
 		}
 	    let conf = {
                 videoid: 'playid',

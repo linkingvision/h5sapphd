@@ -21,10 +21,10 @@
             </ion-row>
              <!-- 内容主题 -->
             <ion-row>
-                <ion-col size='7' offset="3" class="videoplay-col">
+                <ion-col size='5' offset="3" class="videoplay-col">
                    <video src="" class="videoplay" id="h5sVideoLocal" playsinline autoplay muted="muted"  style='object-fit: fill'></video>
                 </ion-col>
-            </ion-row>
+           </ion-row>
             <!--操作部分 -->
             <ion-row>
                 <ion-col size='4' offset="3">
@@ -78,7 +78,7 @@ import '../../assets/js/platform.js'
 import '../../assets/js/h5splayerhelper.js'
 import '../../assets/css/h5splayer.css'
 import {H5siOS,H5sPlayerCreate} from '../../assets/js/h5splayerhelper.js'
-import {H5sPlayerWS,H5sPlayerHls,H5sPlayerRTC,H5sRTCPush,H5sRTCGetCapability} from '../../assets/js/h5splayer.js'
+import {H5sPlayerWS,H5sPlayerHls,H5sPlayerRTC,H5sRTCPush,getUserMedia,H5sRTCGetCapability} from '../../assets/js/h5splayer.js'
   
 export default {
   name:'Uploadoperation',
@@ -90,13 +90,11 @@ export default {
   },
   mounted(){
     H5sRTCGetCapability(this.UpdateCapability);
-    console.log(this.$store.state.callport)
     $('#h5sVideoLocal').get(0).volume = 0;
     $('#h5sVideoLocal').get(0).muted  = 0;  
  },
   methods:{
-      
-   UpdateCapability(capability){
+    UpdateCapability(capability){
         const videoCodecSelect = document.querySelector('#videoCodec');
         const videoSelect = document.querySelector('#videoSource');
         const audioInputSelect = document.querySelector('#audioSource');
@@ -172,6 +170,7 @@ export default {
 		
     },
  Connect(){
+     console.log(this.$store.state.protocol,this.$store.state.Useport.ip+":"+this.$store.state.Useport.port)
         const videoCodecSelect = document.querySelector('#videoCodec');
         const videoSelect = document.querySelector('#videoSource');
         const audioInputSelect = document.querySelector('#audioSource');
@@ -181,9 +180,9 @@ export default {
         var conf1 = {
 		localvideoid:'h5sVideoLocal', //{string} - id of the local video element tag
 		//localvideodom: h5svideodomlocal, //{object} - local video dom. if there has videoid, just use the videoid
-		protocol: window.location.protocol, //http: or https:
-		host: this.$store.state.callport, //localhost:8080
-		rootpath:'', // {string} - path of the app running
+        protocol: this.$store.state.protocol, //http: or https:
+        host: this.$store.state.Useport.ip+":"+this.$store.state.Useport.port, //localhost:8080
+        rootpath:'/', // {string} - path of the app running
 		user:this.$store.state.Useport.user, // {string} - user name
 		type:'media', // {string} - media or sharing
 		audio: 'true', // 'true' or 'false' enable/disable audio
@@ -269,13 +268,14 @@ export default {
     font-weight: 600;
 }
 .videoplay-col{
-    height: 500px;
+    height: 300px;
 }
 .videoplay{
     width:100%;
     height: 100%;
      background-color: #272728;
     border-radius:20px;
+    margin-left: 100px;
 }
 .videolabel{
     width: 50px !important;
@@ -322,7 +322,7 @@ export default {
     position:absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-10%,-50%);
+    transform: translate(-50%,-50%);
 }
 
 </style>
