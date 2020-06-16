@@ -22,7 +22,7 @@
              <!-- 内容主题 -->
             <ion-row>
                 <ion-col size='7' offset="3" class="videoplay-col">
-                   <video src="" class="videoplay"></video>
+                   <video src="" class="videoplay" id="h5sVideoLocal" playsinline autoplay muted="muted"  style='object-fit: fill'></video>
                 </ion-col>
             </ion-row>
             <!--操作部分 -->
@@ -30,41 +30,35 @@
                 <ion-col size='4' offset="3">
                     <ion-item lines='none' class="selectinput">
                         <ion-label class="videolabel">Video Codec</ion-label>
-                        <el-autocomplete v-model="state" :fetch-suggestions="querySearchAsync" placeholder="请输入内容" @select="handleSelect" class="autocomplete">
-                        </el-autocomplete>
+                        <select name="" id="videoCodec"></select>
                     </ion-item>
                     <ion-item lines='none' class="selectinput">
                         <ion-label class="videolabel">Video In</ion-label>
-                        <el-autocomplete v-model="state" :fetch-suggestions="querySearchAsync" placeholder="请输入内容" @select="handleSelect" class="autocomplete">
-                        </el-autocomplete>
+                        <select name="" id="videoSource"></select>
                     </ion-item>
                        <ion-item lines='none' class="selectinput">
                         <ion-label class="videolabel">Audio In</ion-label>
-                        <el-autocomplete v-model="state" :fetch-suggestions="querySearchAsync" placeholder="请输入内容" @select="handleSelect" class="autocomplete">
-                        </el-autocomplete>
+                        <select name="" id="audioSource"></select>
                     </ion-item>
                        <ion-item lines='none' class="selectinput">
                         <ion-label class="videolabel">Audio Out</ion-label>
-                        <el-autocomplete v-model="state" :fetch-suggestions="querySearchAsync" placeholder="请输入内容" @select="handleSelect" class="autocomplete">
-                        </el-autocomplete>
+                        <select name="" id="audioOutput"></select>
                     </ion-item>
                     <ion-item lines='none' class="selectinput">
                         <ion-label class="videolabel">Resolution</ion-label>
-                        <el-autocomplete v-model="state" :fetch-suggestions="querySearchAsync" placeholder="请输入内容" @select="handleSelect" class="autocomplete">
-                        </el-autocomplete>
+                        <select name="" id="resolution"></select>
                     </ion-item>
                       <ion-item lines='none' class="selectinput">
                         <ion-label class="videolabel">Bitrate(Kpbs)</ion-label>
-                        <el-autocomplete v-model="state" :fetch-suggestions="querySearchAsync" placeholder="请输入内容" @select="handleSelect" class="autocomplete">
-                        </el-autocomplete>
+                        <select name="" id="bitrate"></select>
                     </ion-item>
                 </ion-col>
                 <ion-col size='3' class="uploadbutton">
                    <div class="uploadbtn">
-                        <ion-button expand="block" class="buttonlink">
+                        <ion-button expand="block" class="buttonlink" @click="Connect()">
                             <ion-label>连接</ion-label>
                         </ion-button>
-                        <ion-button expand="block" class="break">
+                        <ion-button expand="block" class="break" @click="Disconnect()">
                             <ion-label>断开</ion-label>
                         </ion-button>
                     </div>
@@ -77,18 +71,140 @@
 </template>
 
 <script>
+import '../../assets/js/jquery-3.1.1.js'
+// import '../assets/js/bootstrap.js'
+import '../../assets/js/adapter.js'
+import '../../assets/js/platform.js'
+import '../../assets/js/h5splayerhelper.js'
+import '../../assets/css/h5splayer.css'
+import {H5siOS,H5sPlayerCreate} from '../../assets/js/h5splayerhelper.js'
+import {H5sPlayerWS,H5sPlayerHls,H5sPlayerRTC,H5sRTCPush,H5sRTCGetCapability} from '../../assets/js/h5splayer.js'
+  
 export default {
   name:'Uploadoperation',
   data(){
       return{
-          
+        confdata:{},
+        option:[]
       }
   },
   mounted(){
-
-  },
+    H5sRTCGetCapability(this.UpdateCapability);
+    console.log(this.$store.state.callport)
+    $('#h5sVideoLocal').get(0).volume = 0;
+    $('#h5sVideoLocal').get(0).muted  = 0;  
+ },
   methods:{
+      
+   UpdateCapability(capability){
+        const videoCodecSelect = document.querySelector('#videoCodec');
+        const videoSelect = document.querySelector('#videoSource');
+        const audioInputSelect = document.querySelector('#audioSource');
+        const audioOutputSelect = document.querySelector('#audioOutput');
+        const resolutionSelect = document.querySelector('#resolution');
+        const bitrateSelect = document.querySelector('#bitrate');
+		console.log(capability);
+		 for (let i = 0; i !== capability['videocodec'].length; ++i) {
+            const data = capability['videocodec'][i];
+            const option = document.createElement('option');
+            console.log(option)
+			option.value = data;
+			option.text = data;
+			/* Default use H264 */
+			if (option.value == 'H264')
+			{
+				option.selected = true
+			}
+            videoCodecSelect.appendChild(option);
+        }		
+		for (let i = 0; i !== capability['videoin'].length; ++i) {
+            const data = capability['videoin'][i];
+            console.log(data)
+			const option = document.createElement('option');
+			option.value = data.id;
+			option.text = data.name;
+			videoSelect.appendChild(option);
+		}	
 
+		for (let i = 0; i !== capability['audioin'].length; ++i) {
+			const data = capability['audioin'][i];
+			const option = document.createElement('option');
+			option.value = data.id;
+			option.text = data.name;
+			audioInputSelect.appendChild(option);
+		}
+		
+		for (let i = 0; i !== capability['audioout'].length; ++i) {
+			const data = capability['audioout'][i];
+			const option = document.createElement('option');
+			option.value = data.id;
+			option.text = data.name;
+			audioOutputSelect.appendChild(option);
+		}
+		
+		var resolution = ['QVGA', 'VGA', 'D1', '720P', '1080P', '4K', '8K']
+		for (let i = 0; i !== resolution.length; ++i) {
+			const data = resolution[i];
+			const option = document.createElement('option');
+			option.value = data;
+			option.text = data;
+			/* Default use 720P */
+			if (option.value == '720P')
+			{
+				option.selected = true
+			}
+			resolutionSelect.appendChild(option);
+		}
+		
+		var bitrate = ['32', '64', '128', '256', '512', '1024', '2048', '4096']
+		for (let i = 0; i !== bitrate.length; ++i) {
+			const data = bitrate[i];
+			const option = document.createElement('option');
+			option.value = data;
+			option.text = data;
+			/* Default use 720P */
+			if (option.value == '1024')
+			{
+				option.selected = true
+			}
+			bitrateSelect.appendChild(option);
+		}
+		
+    },
+ Connect(){
+        const videoCodecSelect = document.querySelector('#videoCodec');
+        const videoSelect = document.querySelector('#videoSource');
+        const audioInputSelect = document.querySelector('#audioSource');
+        const audioOutputSelect = document.querySelector('#audioOutput');
+        const resolutionSelect = document.querySelector('#resolution');
+        const bitrateSelect = document.querySelector('#bitrate');
+        var conf1 = {
+		localvideoid:'h5sVideoLocal', //{string} - id of the local video element tag
+		//localvideodom: h5svideodomlocal, //{object} - local video dom. if there has videoid, just use the videoid
+		protocol: window.location.protocol, //http: or https:
+		host: this.$store.state.callport, //localhost:8080
+		rootpath:'', // {string} - path of the app running
+		user:this.$store.state.Useport.user, // {string} - user name
+		type:'media', // {string} - media or sharing
+		audio: 'true', // 'true' or 'false' enable/disable audio
+		callback: null, //Callback for the event
+		userdata: null, // user data
+		session: this.$store.state.token, //session got from login
+		consolelog: 'true' // 'true' or 'false' enable/disable console.log
+    };
+     this.confdata=conf1
+      console.log(1)
+      console.log(conf1);
+	  var v1 = new H5sRTCPush(conf1);
+	  v1.connect(videoSelect.value, videoCodecSelect.value, bitrateSelect.value, resolutionSelect.value,  audioInputSelect.value);
+    },
+    Disconnect()
+	{   
+       console.log(this.confdata)
+       var v1 = new H5sRTCPush(this.confdata);
+		console.log("Disconnect");
+		v1.disconnect();
+	}
   }
 }
 </script>
@@ -98,6 +214,9 @@ export default {
    width: 100%;
    height: 22px;
    border: none;
+}
+.select{
+    width: 250px;
 }
 .upload-content{
     /* height: 100%; */
@@ -150,11 +269,11 @@ export default {
     font-weight: 600;
 }
 .videoplay-col{
-    /* height: 323px; */
+    height: 500px;
 }
 .videoplay{
     width:100%;
-    /* height: 250px; */
+    height: 100%;
      background-color: #272728;
     border-radius:20px;
 }
@@ -163,7 +282,6 @@ export default {
     margin: 8px;
 }
 .selectinput{
-    
    --background:transparent ;
    --min-height:15px;
    --color:#D0D0D0;
@@ -173,6 +291,14 @@ export default {
    --padding-bottom:0;
    --padding-top:0;
    --min-height:10px;
+}
+.selectinput select{
+   width: 280px;
+   background-color:transparent;
+  appearance:none;
+  -moz-appearance:none;
+  -webkit-appearance:none;
+  
 }
 .selectiop{
   border: 1px solid red;

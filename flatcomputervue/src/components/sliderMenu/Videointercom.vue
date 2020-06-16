@@ -11,7 +11,7 @@
                           <ion-avatar slot="start" class="upload-title">
                               <img src="../../assets/imags/videoadd2x.png" alt="">
                           </ion-avatar>
-                          <ion-title class="video-title">视频上传</ion-title>
+                          <ion-title class="video-title">视频对讲</ion-title>
                           <ion-button class="backbtn" href='#/liveview' component='Liveview'>
                               <ion-avatar slot="end" class="main-end" >
                                   <img src="../../assets/imags/fanhui-4@2x.png" alt="">
@@ -23,7 +23,7 @@
                <!-- 内容主题 -->
               <ion-row>
                 <ion-col size='2'>
-                    <ion-button class="intercomUsers" herf='#'>
+                    <ion-button class="intercomUsers" herf='#main' id='main' @click="openFirst()">
                         <img src="../../assets/imags/creatuser.png" alt="">
                     </ion-button>
                 </ion-col>
@@ -44,36 +44,63 @@
                            </div>
                         </ion-card-content>
                     </ion-car>
+                     <!-- 侧边栏菜单 -->
+                    <ion-menu side="start" menu-id="first" content-id="main" class="menu-video">
+                        <ion-content class="menu-content">
+                            <ion-list class="menu-list">
+                                <ion-item class="menu-item" lines="none">
+                                    <ion-label>大区经理</ion-label>
+                                    <ion-button class="menu-button">
+                                        <ion-thumbnail slot="end" class="menu-thumbnail">
+                                            <div class="bgcvideomenu"></div>
+                                        </ion-thumbnail>
+                                    </ion-button>
+                                    <ion-button class="menu-button">
+                                        <ion-thumbnail slot="end" class="menu-thumbnail">
+                                            <img src="../../assets/imags/duijiang.png">
+                                        </ion-thumbnail>
+                                    </ion-button>
+                                </ion-item>
+                                <ion-item class="menu-item" lines="none" >
+                                    <ion-label>海康王经理</ion-label>
+                                    <ion-button class="menu-button">
+                                        <ion-thumbnail slot="end" class="menu-thumbnail">
+                                            <div class="bgcvideomenu"></div>
+                                        </ion-thumbnail>
+                                    </ion-button>
+                                    <ion-button class="menu-button">
+                                        <ion-thumbnail slot="end" class="menu-thumbnail">
+                                            <img src="../../assets/imags/duijiang.png">
+                                        </ion-thumbnail>
+                                    </ion-button>
+                                </ion-item>
+                                <ion-item class="menu-item" lines="none">
+                                     <ion-label>海康王经理</ion-label>
+                                    <ion-button class="menu-button">
+                                        <ion-thumbnail slot="end" class="menu-thumbnail">
+                                            <div class="bgcvideomenu"></div>
+                                        </ion-thumbnail>
+                                    </ion-button>
+                                    <ion-button class="menu-button">
+                                        <ion-thumbnail slot="end" class="menu-thumbnail">
+                                            <img src="../../assets/imags/duijiang.png">
+                                        </ion-thumbnail>
+                                    </ion-button>
+                                </ion-item>
+                            </ion-list>
+                        </ion-content>
+                   </ion-menu>
                  </ion-col>
               </ion-row>
              </ion-grid>
            </div>
-           <!-- 侧边栏菜单 -->
-          <ion-menu side="start" menu-id="first" content-id="main">
-               <ion-header>
-                  <ion-toolbar color="primary">
-                      <ion-buttons slot="start">
-                          <ion-button>
-                              <img src="../../assets/imags/creatuser.png" alt="">
-                          </ion-button>
-                      </ion-buttons>
-                  </ion-toolbar>
-                </ion-header>
-                <ion-content>
-                  <ion-list>
-                    <ion-item>Menu Item</ion-item>
-                    <ion-item>Menu Item</ion-item>
-                    <ion-item>Menu Item</ion-item>
-                    <ion-item>Menu Item</ion-item>
-                    <ion-item>Menu Item</ion-item>
-                  </ion-list>
-                </ion-content>
-           </ion-menu>
-           <!-- <ion-router-outlet id='main'></ion-router-outlet> -->
-       </ion-content>
+          
+        </ion-content>
     </div>
 </template>
 <script>
+import { menuController } from '@ionic/core';
+window.menuController = menuController;
 export default {
   name:'Videointercom',
   data(){
@@ -82,11 +109,13 @@ export default {
       }
   },
   mounted(){
+
    },
   methods:{
     openFirst(){
-      console.log(1)
-      this.menu.open('main');
+     console.log(1)
+     menuController.enable(true, 'first');
+     menuController.open('first');
     }
   }
 }
@@ -104,7 +133,7 @@ export default {
    width: 100%;
    background-color:#333333;
    border-radius:50px 50px 0 0;
-   padding-bottom: 50px;
+   /* padding-bottom: 50px; */
 }
 .upload-main{
     width: 100%;
@@ -178,6 +207,7 @@ export default {
 }
 .createdvideocol{
    --ion-grid-column-padding:85px;
+   padding-bottom: 0;
    padding-top:15px;
    box-sizing:border-box;
    
@@ -188,9 +218,7 @@ export default {
     background-color:#272727;
     border-radius: 30px;
     position: relative;
-    
-    
-  }
+}
 .intercomvideoplay{
     width:100%;
     height: 100%;
@@ -210,7 +238,48 @@ export default {
     margin-bottom: 12px;
 }
 /* 侧边滑单 */
-.my-custom-menu {
-  --width: 500px;
+.menu-video{
+   --width: 500px;
+   --background:transparent;
+   margin-bottom:15px;
+  
 }
+.menu-content{ 
+    --background:#303031;
+     border-radius:50px;
+}
+.menu-list{
+   background-color:transparent;
+   padding: 0;
+   
+}
+.menu-item{
+   --background:transparent; 
+   margin:0;
+   color:#FFFFFF; 
+   border-radius:50px; 
+}
+.menu-thumbnail{
+    width:32px;
+    height: 32px;
+}
+.bgcvideomenu{
+    width: 28px;
+    height: 31px;
+    background:url('../../assets/imags/videouploade.png') no-repeat;
+    background-size: 100% 100%;
+}
+.menu-button{
+   --background:transparent;
+   --background-activated:#0EDBAD;
+   --box-shadow:0;
+   --background-activated-opacity:0.1;
+   margin-right: 20px;
+}
+.menu-button img{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
 </style>
