@@ -150,6 +150,7 @@ public class SystemWebViewEngine implements CordovaWebViewEngine {
         final WebSettings settings = webView.getSettings();
         settings.setJavaScriptEnabled(true);
         settings.setJavaScriptCanOpenWindowsAutomatically(true);
+
         settings.setLayoutAlgorithm(LayoutAlgorithm.NORMAL);
 
         String manufacturer = android.os.Build.MANUFACTURER;
