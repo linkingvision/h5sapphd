@@ -1,1 +1,18 @@
-{"devDependencies":{"cordova-plugin-whitelist":"1"},"cordova":{"plugins":{"cordova-plugin-whitelist":{}}}}
+{
+  "devDependencies": {
+    "cordova-plugin-whitelist": "1"
+  },
+  "cordova": {
+    "plugins": {
+      "cordova-plugin-whitelist": {},
+      "cordova-plugin-android-permissions": {}
+    },
+    "platforms": [
+      "android"
+    ]
+  },
+  "dependencies": {
+    "cordova-android": "^8.1.0",
+    "cordova-plugin-android-permissions": "^1.0.2"
+  }
+}

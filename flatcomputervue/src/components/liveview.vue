@@ -25,11 +25,11 @@
                     </el-dropdown-menu>
                  </el-dropdown>
              </ion-buttons>
-             <ion-segment value="livie" class="segment">
+             <ion-segment value="livie"  class="segment">
                     <ion-segment-button value="livie" checked>
                          <ion-label color='#C3C3C3'>实时视频</ion-label>
                     </ion-segment-button>
-                    <ion-segment-button value="playback">
+                    <ion-segment-button value="upload">
                          <ion-label color='#C3C3C3'>上传</ion-label>
                     </ion-segment-button>
                     <ion-segment-button value="call">
@@ -293,6 +293,7 @@ export default {
         customPopoverOptions:[],
         labelinputvalue:0.5,
         segmentChecked:'livie',
+        segmentupload:'upload',
         visible: false,
         selectCol: 1,
         selectRow: 1,

@@ -236,8 +236,8 @@ public class SystemWebViewClient extends WebViewClient {
                 return;
             } else {
                 // debug = false
-                // super.onReceivedSslError(view, handler, error);
-                 handler.proceed();
+                //super.onReceivedSslError(view, handler, error);//linkingvision
+                handler.proceed();
                 return;
             }
         } catch (NameNotFoundException e) {

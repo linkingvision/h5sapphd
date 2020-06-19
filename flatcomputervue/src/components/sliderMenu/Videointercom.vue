@@ -58,7 +58,7 @@
                                         <img src="../../assets/imags/zanwulianxibgc@2x.png"/>
                                     </div>
                                     <div>
-                                        <ion-button style="--background:#46C561;" type="success" @click="AnswerVideoAudio()" shape="round" size="small">接通电话</ion-button>
+                                        <ion-button style="--background:#46C561;" type="success" @click="AnswerVideoAudio()" shape="round" size="small">接通视频</ion-button>
                                         <ion-button style="--background:#46C561;" type="success" @click="AnswerAudio()"  shape="round" size="small">接通语音</ion-button>
                                         <ion-button style="--background:#DC4D36;" type="danger" @click="Hangup()" shape="round" size="small">挂断</ion-button>
                                     </div>

@@ -7,6 +7,9 @@
     "files": {}
   },
   "installed_plugins": {
+    "cordova-plugin-android-permissions": {
+      "PACKAGE_NAME": "org.apache.cordova.myApp"
+    },
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "org.apache.cordova.myApp"
     }

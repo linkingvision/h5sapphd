@@ -88,11 +88,13 @@ export default {
         option:[]
       }
   },
-  mounted(){
+   created(){
     H5sRTCGetCapability(this.UpdateCapability);
-    $('#h5sVideoLocal').get(0).volume = 0;
-    $('#h5sVideoLocal').get(0).muted  = 0;  
- },
+  },
+  mounted(){
+         $('#h5sVideoLocal').get(0).volume = 0;
+         $('#h5sVideoLocal').get(0).muted  = 0; 
+    },
   methods:{
     UpdateCapability(capability){
         const videoCodecSelect = document.querySelector('#videoCodec');
@@ -118,7 +120,8 @@ export default {
 		for (let i = 0; i !== capability['videoin'].length; ++i) {
             const data = capability['videoin'][i];
             console.log(data)
-			const option = document.createElement('option');
+            const option = document.createElement('option');
+             console.log(option)
 			option.value = data.id;
 			option.text = data.name;
 			videoSelect.appendChild(option);
@@ -128,7 +131,8 @@ export default {
 			const data = capability['audioin'][i];
 			const option = document.createElement('option');
 			option.value = data.id;
-			option.text = data.name;
+            option.text = data.name;
+             console.log(option)
 			audioInputSelect.appendChild(option);
 		}
 		
