@@ -46,50 +46,50 @@ function sethtml(designSize, rootValue){
     　　websocket.close();
     },
   // 权限
-new Promise(function (resolve, reject) {
-    var permissions = cordova.plugins.permissions;
-    var list = [
-          permissions.CAMERA,
-          permissions.MICROPHONE,
-          permissions.RECORD_AUDIO,
-          permission.INTERNET,
-          permission.CAMERA,
-          hardware.camera,
-          hardware.camera.autofocus,
-          permission.RECORD_AUDIO,
-          permission.MODIFY_AUDIO_SETTINGS,
-          permission.ACCESS_FINE_LOCATION,
-          permission.WAKE_LOCK,
-          permission.SET_WALLPAPER,
-          permission.WRITE_EXTERNAL_STORAGE,
-          permission.READ_SMS,
-          permission.READ_PHONE_STATE,
-          permission.RECORD_VIDEO,
-          permission.ACCESS_NETWORK_STATE,
-          permission.ACCESS_WIFI_STATE,
-          permission.CAMERA,
-          permission.BLUETOOTH
-          //可以写多个权限
-        ];
-  permissions.requestPermissions(list, function(status) {
-            resolve(status)
-            }, function () {
-                reject()
-            })
-}).then(function(status){
-    navigator.mediaDevices.getUserMedia({
-        //这里这几配置
-    }).then(function(msg){
-        //这里就可以做你想做的事了
-       alert('请求成功')
-    }).catch(function(err) {
-        /* 处理error */
-        console.log(err);
-    });
-}).catch(function () {
-    //获取权限失败！！！
-    alert('permission request fail')
-})
+// new Promise(function (resolve, reject) {
+//     var permissions = cordova.plugins.permissions;
+//     var list = [
+//           permissions.CAMERA,
+//           permissions.MICROPHONE,
+//           permissions.RECORD_AUDIO,
+//           permission.INTERNET,
+//           permission.CAMERA,
+//           hardware.camera,
+//           hardware.camera.autofocus,
+//           permission.RECORD_AUDIO,
+//           permission.MODIFY_AUDIO_SETTINGS,
+//           permission.ACCESS_FINE_LOCATION,
+//           permission.WAKE_LOCK,
+//           permission.SET_WALLPAPER,
+//           permission.WRITE_EXTERNAL_STORAGE,
+//           permission.READ_SMS,
+//           permission.READ_PHONE_STATE,
+//           permission.RECORD_VIDEO,
+//           permission.ACCESS_NETWORK_STATE,
+//           permission.ACCESS_WIFI_STATE,
+//           permission.CAMERA,
+//           permission.BLUETOOTH
+//           //可以写多个权限
+//         ];
+//   permissions.requestPermissions(list, function(status) {
+//             resolve(status)
+//             }, function () {
+//                 reject()
+//             })
+// }).then(function(status){
+//     navigator.mediaDevices.getUserMedia({
+//         //这里这几配置
+//     }).then(function(msg){
+//         //这里就可以做你想做的事了
+//        alert('请求成功')
+//     }).catch(function(err) {
+//         /* 处理error */
+//         console.log(err);
+//     });
+// }).catch(function () {
+//     //获取权限失败！！！
+//     alert('permission request fail')
+// })
  // http request 拦截器
 axios.interceptors.request.use(
   config => {

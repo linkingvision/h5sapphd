@@ -21,13 +21,13 @@
             </ion-row>
              <!-- 内容主题 -->
             <ion-row>
-                <ion-col size='5' offset="3" class="videoplay-col">
+                <ion-col size='8' offset="2" class="videoplay-col">
                    <video src="" class="videoplay" id="h5sVideoLocal" playsinline autoplay muted="muted"  style='object-fit: fill'></video>
                 </ion-col>
            </ion-row>
             <!--操作部分 -->
             <ion-row>
-                <ion-col size='4' offset="3">
+                <ion-col size='5' offset="2">
                     <ion-item lines='none' class="selectinput">
                         <ion-label class="videolabel">Video Codec</ion-label>
                         <select name="" id="videoCodec"></select>
@@ -36,11 +36,11 @@
                         <ion-label class="videolabel">Video In</ion-label>
                         <select name="" id="videoSource"></select>
                     </ion-item>
-                       <ion-item lines='none' class="selectinput">
+                    <ion-item lines='none' class="selectinput" style="display:none">
                         <ion-label class="videolabel">Audio In</ion-label>
                         <select name="" id="audioSource"></select>
                     </ion-item>
-                       <ion-item lines='none' class="selectinput">
+                    <ion-item lines='none' class="selectinput" style="display:none">
                         <ion-label class="videolabel">Audio Out</ion-label>
                         <select name="" id="audioOutput"></select>
                     </ion-item>
@@ -128,7 +128,7 @@ export default {
 		}	
 
 		for (let i = 0; i !== capability['audioin'].length; ++i) {
-			const data = capability['audioin'][i];
+			const data = capability['audioin'][0];
 			const option = document.createElement('option');
 			option.value = data.id;
             option.text = data.name;
@@ -137,7 +137,7 @@ export default {
 		}
 		
 		for (let i = 0; i !== capability['audioout'].length; ++i) {
-			const data = capability['audioout'][i];
+			const data = capability['audioout'][0];
 			const option = document.createElement('option');
 			option.value = data.id;
 			option.text = data.name;
@@ -196,10 +196,10 @@ export default {
 		consolelog: 'true' // 'true' or 'false' enable/disable console.log
     };
      this.confdata=conf1
-      console.log(1)
+      console.log(audioInputSelect.value)
       console.log(conf1);
 	  var v1 = new H5sRTCPush(conf1);
-	  v1.connect(videoSelect.value, videoCodecSelect.value, bitrateSelect.value, resolutionSelect.value,  audioInputSelect.value);
+	  v1.connect(videoSelect.value, videoCodecSelect.value, bitrateSelect.value, resolutionSelect.value,audioInputSelect.value);
     },
     Disconnect()
 	{   
@@ -272,14 +272,13 @@ export default {
     font-weight: 600;
 }
 .videoplay-col{
-    height: 300px;
+    height: 420px;
 }
 .videoplay{
     width:100%;
     height: 100%;
      background-color: #272728;
     border-radius:20px;
-    margin-left: 100px;
 }
 .videolabel{
     width: 50px !important;

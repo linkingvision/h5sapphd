@@ -18,6 +18,80 @@
             }
           ]
         }
+      },
+      "AndroidManifest.xml": {
+        "parents": {
+          "/manifest": [
+            {
+              "xml": "<uses-permission android:name=\"android.permission.INTERNET\" />",
+              "count": 7
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.CAMERA\" />",
+              "count": 7
+            },
+            {
+              "xml": "<uses-feature android:name=\"android.hardware.camera\" />",
+              "count": 7
+            },
+            {
+              "xml": "<uses-feature android:name=\"android.hardware.camera.autofocus\" android:required=\"true\" />",
+              "count": 7
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.RECORD_AUDIO\" />",
+              "count": 7
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.MODIFY_AUDIO_SETTINGS\" />",
+              "count": 7
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.ACCESS_FINE_LOCATION\" />",
+              "count": 7
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.WAKE_LOCK\" />",
+              "count": 7
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.SET_WALLPAPER\" />",
+              "count": 7
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
+              "count": 7
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.READ_SMS\" />",
+              "count": 7
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.READ_PHONE_STATE\" />",
+              "count": 7
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.RECORD_VIDEO\" />",
+              "count": 7
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\" />",
+              "count": 7
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\" />",
+              "count": 7
+            },
+            {
+              "xml": "<uses-permission android:name=\" android.permission.CAMERA\" />",
+              "count": 7
+            },
+            {
+              "xml": "<uses-permission android:name=\"android.permission.BLUETOOTH\" />",
+              "count": 7
+            }
+          ]
+        }
       }
     }
   },
