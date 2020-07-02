@@ -124,6 +124,16 @@ export default {
   mounted(){
     //  this.TableInfo()
      this.tabellist()
+    // 监听拨打电话过来的
+    // cordova.plugins.notification.local.schedule({
+    //             id: 1,
+    //             title: '来点提醒',
+    //             text:'用户'+msgevent.peerAdd.strId+'上线，可以视频对讲',
+    //             at: new Date().getTime(),
+    //      });
+    //  cordova.plugins.notification.local.on('schedule', function (notification) {
+    //                 alert('scheduled:' + notification.id);
+    //             });
     },
   methods:{
     openFirst(){
@@ -171,18 +181,40 @@ export default {
                         console.log("对方id",this.data[i].label)
                         this.name=this.data[i].label;
                     }
+                    cordova.plugins.notification.local.schedule({
+                    id: new Date(),
+                    title: '对方呼叫提醒',
+                    text:'用户'+this.data[i].label+'向您发起了视频对讲',
+                    at: new Date().getTime(),
+                    // every: 'minute'
+                });
                 }
                 $(".content_anniu2").css("display","block");
                 this.id=msgevent.peerCall.strId;
-             }
+            }
             if (msgevent.type === 'CFE_EVENT_PEER_ADD')
             {
                 var newItem ={
                     label:msgevent.peerAdd.strName,
                     id:msgevent.peerAdd.strId,
                 };
+                // for(var i = 0; i < newItem.length; i++) {
+                //     if (newItem .indexOf(newItem[i]) === -1) {
+                //        this.data.push(newItem[i])
+                //     }
+                // }
                 this.data.push(newItem);
+                //通知栏
+                for(var i=0;i<this.data.length;i++){
+                    cordova.plugins.notification.local.schedule([{
+                    id: i,
+                    title: '上线提醒',
+                    text:'用户'+this.data[i].id+'上线，可以视频对讲',
+                    at: new Date().getTime(),
+                    badge:this.data.length
+                }]);
             }
+           }
             if (msgevent.type === 'CFE_EVENT_PEER_DEL')
             {
                for(var i=0;i<this.data.length;i++){
@@ -220,8 +252,8 @@ export default {
         Hangup(){
             console.log("Hangup");
             this.v1.hangup();
-            $(".content_anniu2").css("display","none");
-        },
+           $(".content_anniu2").css("display","none");
+          },
       dinone(){
         $('.Hangupnone').toggleClass('Hangup')
         

@@ -107,12 +107,27 @@ export default {
   },
   created(){
     this.getStorage()
+     // 回退按钮监听事件
+    document.addEventListener("backbutton", this.onBackKeyDown, false)
+    document.addEventListener('deviceready', function () {
+      // cordova.plugins.backgroundMode is now available
+    }, false)
   },
 
   mounted(){
      $('.ion-config').hide()
   },
   methods: {
+   onBackKeyDown () {
+      console.log('backkeydown')
+      document.removeEventListener("backbutton", this.onBackKeyDown, false)
+      document.addEventListener("backbutton", this.exitApp, false)
+    },
+    exitApp () {
+      console.log('exit app')
+      // navigator.app.exitApp() // 退出APP
+      window.cordova.plugins.backgroundMode.moveToBackground() // 后台运行APP
+    }, 
     dropdown(){
      $('.ion-config').slideToggle();
     },

@@ -263,8 +263,7 @@
    </div>
 </template>
 <script type="text/javascript">
- 
-    import { menuController, configFromSession } from '@ionic/core';
+   import { menuController, configFromSession } from '@ionic/core';
     window.menuController = menuController;
 </script>
 <script>
@@ -325,17 +324,18 @@ export default {
   },
   created(){
     this.historyimg()
-  },
+   },
   mounted(){
     console.log(this.$store.state.protocol)
     this.Regional()
     // $('.ptzmenu').hide()
     $('.ptzcontent').hide()
-    $('#fabptzup').on('touchstart',function(){
-      alert('可以')
-    })
+    // $('#fabptzup').on('touchstart',function(){
+    //   alert('可以')
+    // })
    },
   methods:{
+ 
      // 滚动条
    slidechangenone(){
       $('.ion-footer').hide()
@@ -346,280 +346,278 @@ export default {
     //  头部菜单
    segmentChanged(event){
      console.log(event)
-  },
-  change(e){
+    },
+   change(e){
         this.labelinputvalue=e.target.value
         console.log(e.target.value)
     },
     // ptz
- ptzcloud(){
+    ptzcloud(){
       console.log(1)
       $('.ptzcontent').toggle();
-   },
-   about(){
-      console.log(1)
-  },
- logout(){
-   this.$store.commit(types.LOGOUT);
-   var root = this.$store.state.callport;
-   var url = root + "/api/v1/Logout?session="+this.$store.state.token;
-   this.$http.get(url).then(result=>{
-        if(result.status==200){
-          this.$router.push('/Login')
-        }else{
-          this.$router.push('/Login')
-        }
-    })
- },
-  // 头部左边边下拉菜单
- presentPopover(ev) {
-    const popover = Object.assign(document.createElement('ion-popover'), {
-    component: 'popover-example-page',
-    cssClass: 'my-custom-class',
-    event: ev,
-    translucent: true
-  });
-    document.body.appendChild(popover);
-    return popover.present();
-},
-  // 头部右边下拉菜单
- openCustom(){
-    $('.menubgc').toggleClass('menubgctogle')
-    console.log(1)
-},
-// 传递视频播放位置id 
-videoClick(r, c, $event) {
-    this.selectCol = c;
-    this.selectRow = r;
-    this.h5id='h'+r+c;
-    let h5video='hvideo'+r+c
-    this.h5videoid=h5video
-    console.log($($event.target).parent())
-    console.log(r, c,$($event.target).parent().hasClass('videoClickColor'));
-    if ($($event.target).parent().hasClass('videoClickColor')) {
-        $($event.target).parent().removeClass('videoClickColor');
-    } else {
-        $('#videoPanel div[class*="videoClickColor"]').removeClass('videoClickColor');
-        $('#videoPanel>div').eq(r - 1).children('div').eq(c - 1).addClass('videoClickColor');
-    }
-    if(document.webkitIsFullScreen){
-        $(".Close_flex1").toggle();
-    }
     },
- //树形节点点击
- handleNodeClick1(data, checked, indeterminate){
-    let _this =this;
-    console.log(data)
-    // var main="main"
-   _this.tokenshow=data.strToken
-    if (data.strToken) {
-        let vid = 'h' + _this.$data.selectRow + _this.$data.selectCol;
-        console.log("----------------------", data.strToken,data.streamprofile, data.name,data.strName, vid);
-        // return false;
-        _this.$root.bus.$emit('liveplay', data.strToken,data.streamprofile, data.name,data.strName, vid);
-    }
-     setTimeout(function(){
-                    for(var i=1;i<=this.rows;i++){
-                        for(var c=1;c<=this.cols;c++){
-                            var video= document.getElementById("hvideo"+i+c)
-                            console.log('video.paused',video);
-                            if(video.paused){
-                                this.selectCol = c;
-                                this.selectRow =i;
-                                $('#videoPanel div[class*="videoClickColor"]').removeClass('videoClickColor');
-                                $("#h"+this.selectRow+this.selectCol).addClass('videoClickColor');
-                                console.log('video.paused1',video.paused,i,c);
-                                return false
-                            }else{
-                                console.log('video.paused1',video.paused);
-                            }
+    about(){
+      console.log(1)
+     },
+    logout(){
+        this.$store.commit(types.LOGOUT);
+        var root = this.$store.state.callport;
+        var url = root + "/api/v1/Logout?session="+this.$store.state.token;
+        this.$http.get(url).then(result=>{
+            if(result.status==200){
+            this.$router.push('/Login')
+            }else{
+            this.$router.push('/Login')
+         }
+      })
+    },
+    // 头部左边边下拉菜单
+    presentPopover(ev) {
+        const popover = Object.assign(document.createElement('ion-popover'), {
+        component: 'popover-example-page',
+        cssClass: 'my-custom-class',
+        event: ev,
+        translucent: true
+    });
+        document.body.appendChild(popover);
+        return popover.present();
+   },
+    // 头部右边下拉菜单
+    openCustom(){
+        $('.menubgc').toggleClass('menubgctogle')
+        console.log(1)
+    },
+    // 传递视频播放位置id 
+    videoClick(r, c, $event) {
+        this.selectCol = c;
+        this.selectRow = r;
+        this.h5id='h'+r+c;
+        let h5video='hvideo'+r+c
+        this.h5videoid=h5video
+        console.log($($event.target).parent())
+        console.log(r, c,$($event.target).parent().hasClass('videoClickColor'));
+        if ($($event.target).parent().hasClass('videoClickColor')) {
+            $($event.target).parent().removeClass('videoClickColor');
+        } else {
+            $('#videoPanel div[class*="videoClickColor"]').removeClass('videoClickColor');
+            $('#videoPanel>div').eq(r - 1).children('div').eq(c - 1).addClass('videoClickColor');
+        }
+        if(document.webkitIsFullScreen){
+            $(".Close_flex1").toggle();
+        }
+        },
+        //树形节点点击
+        handleNodeClick1(data, checked, indeterminate){
+            let _this =this;
+            console.log(data)
+            // var main="main"
+        _this.tokenshow=data.strToken
+            if (data.strToken) {
+                let vid = 'h' + _this.$data.selectRow + _this.$data.selectCol;
+                console.log("----------------------", data.strToken,data.streamprofile, data.name,data.strName, vid);
+                // return false;
+                _this.$root.bus.$emit('liveplay', data.strToken,data.streamprofile, data.name,data.strName, vid);
+            }
+        setTimeout(function(){
+            for(var i=1;i<=this.rows;i++){
+                for(var c=1;c<=this.cols;c++){
+                    var video= document.getElementById("hvideo"+i+c)
+                    console.log('video.paused',video);
+                    if(video.paused){
+                        this.selectCol = c;
+                        this.selectRow =i;
+                        $('#videoPanel div[class*="videoClickColor"]').removeClass('videoClickColor');
+                        $("#h"+this.selectRow+this.selectCol).addClass('videoClickColor');
+                        console.log('video.paused1',video.paused,i,c);
+                        return false
+                    }else{
+                        console.log('video.paused1',video.paused);
+                    }
+                }
+            }
+            
+        }.bind(this),1000)
+       },
+        // 区域
+        Regional(){
+            var root = this.$store.state.callport;
+            var url = root + "/api/v1/GetRegion?session="+this.$store.state.token;
+            // console.log(url,this.$store.state.callport,this.Useport,root);
+            this.$http.get(url).then(result=>{
+                console.log(result)
+                var oldarr=result.data.root;
+                var oldarr1=result.data.src;
+                var dataroot=this.getchild(oldarr,oldarr1);
+                // console.log(dataroot);
+                this.camdata.push(dataroot);
+                // console.log(this.camdata)
+            })
+        },
+        getchild(arr,arr1) {
+            for(var i in arr.cam){
+                if(!arr.cam[i].strName){
+                    for(var j in arr1){
+                        if(arr.cam[i].strToken == arr1[j].strToken){
+                            var node1=[{
+                                strToken : arr1[j].strToken,
+                                streamprofile : "main",
+                                strName :'主码流',
+                                name:arr1[j].strName+"--"+'主码流',
+                                iconclass : 'listpng',
+                            },{
+                                strToken : arr1[j].strToken,
+                                streamprofile : "sub",
+                                strName :'辅码流',
+                                name:arr1[j].strName+"--"+'辅码流',
+                                iconclass : 'listpng',
+                            }]
+                            arr.cam[i].node=node1;
+                            arr.cam[i].strName = arr1[j].strName;
+                            arr.cam[i].name=arr1[j].strName+"--"+'主码流',
+                            arr.cam[i].bOnline = arr1[j].bOnline;
+                            arr.cam[i].iconclass="listpng2"
+                            if(!arr1[j].bOnline)
+                                arr.cam[i].iconclass = 'mdi mdi-camcorder-off fa-fw';
+
+                            if(arr1[j].nConnectType == 'H5_CLOUD')
+                                arr.cam[i].iconclass = 'listpng2';
+
+                            if(arr1[j].bRec == true)
+                                arr.cam[i].iconclass2  = 'iconfont icon-radioboxfill none';
                         }
                     }
-                    
-                }.bind(this),1000)
-},
-   // 区域
- Regional(){
-    var root = this.$store.state.callport;
-    var url = root + "/api/v1/GetRegion?session="+this.$store.state.token;
-    // console.log(url,this.$store.state.callport,this.Useport,root);
-    this.$http.get(url).then(result=>{
-        console.log(result)
-        var oldarr=result.data.root;
-        var oldarr1=result.data.src;
-        var dataroot=this.getchild(oldarr,oldarr1);
-        // console.log(dataroot);
-        this.camdata.push(dataroot);
-        // console.log(this.camdata)
-    })
-},
-	getchild(arr,arr1) {
-		for(var i in arr.cam){
-			if(!arr.cam[i].strName){
-				for(var j in arr1){
-					if(arr.cam[i].strToken == arr1[j].strToken){
-						var node1=[{
-							strToken : arr1[j].strToken,
-							streamprofile : "main",
-							strName :'主码流',
-							name:arr1[j].strName+"--"+'主码流',
-							iconclass : 'listpng',
-						},{
-							strToken : arr1[j].strToken,
-							streamprofile : "sub",
-							strName :'辅码流',
-							name:arr1[j].strName+"--"+'辅码流',
-							iconclass : 'listpng',
-						}]
-						arr.cam[i].node=node1;
-						arr.cam[i].strName = arr1[j].strName;
-						arr.cam[i].name=arr1[j].strName+"--"+'主码流',
-						arr.cam[i].bOnline = arr1[j].bOnline;
-						arr.cam[i].iconclass="listpng2"
-						if(!arr1[j].bOnline)
-							arr.cam[i].iconclass = 'mdi mdi-camcorder-off fa-fw';
+                }
+            }
+            if(arr.node && arr.node.length>0){
+                for (var i = 0; i < arr.node.length; i++) {
+                    arr.node[i] =this.getchild(arr.node[i],arr1);
+                }
+            }
+            return arr;
+	    },
 
-						if(arr1[j].nConnectType == 'H5_CLOUD')
-							arr.cam[i].iconclass = 'listpng2';
-
-						if(arr1[j].bRec == true)
-							arr.cam[i].iconclass2  = 'iconfont icon-radioboxfill none';
-					}
-				}
-			}
-		}
-		if(arr.node && arr.node.length>0){
-			for (var i = 0; i < arr.node.length; i++) {
-				arr.node[i] =this.getchild(arr.node[i],arr1);
-			}
-		}
-		return arr;
-	},
-
-    //关闭
-  	close(){
-		console.log("关闭");
-		let vid = 'h' + this.$data.selectRow + this.$data.selectCol;
-		let playid = 'hvideo' + this.$data.selectRow + this.$data.selectCol;
-		this.$root.bus.$emit('liveplayclose',vid,playid);
+            //关闭
+            close(){
+                console.log("关闭");
+                let vid = 'h' + this.$data.selectRow + this.$data.selectCol;
+                let playid = 'hvideo' + this.$data.selectRow + this.$data.selectCol;
+                this.$root.bus.$emit('liveplayclose',vid,playid);
+            },
+            PtzActionZoomIn(event)
+        {
+            console.log("PtzActionZoomIn");
+            this.PtzActionfather('zoomin');
+            event.stopPropagation();
+            event.preventDefault()
+        },
+            PtzActionZoomOut(event)
+        {
+            this.PtzActionfather('zoomout');
+        },
+            PtzActionLeft(event)
+        {
+            this.PtzActionfather('left');
+            },
+            PtzActionRight(event)
+        {
+            this.PtzActionfather('right');
+        },
+            PtzActionUp(event)
+        {
+            this.PtzActionfather('up');
+            event.stopPropagation();
+            event.preventDefault()
+        },
+        PtzActionDown(event)
+        {
+            this.PtzActionfather('down');
+        },
+        PtzActionStop(event)
+        {
+            console.log("PtzActionStop");
+            this.PtzActionfather('stop');
+        },
+        // PTZ方法   
+        PtzActionfather(action)
+        {    
+            console.log(1)
+            let vid = 'h' + this.$data.selectRow + this.$data.selectCol;
+            let playid = 'hvideo' + this.$data.selectRow + this.$data.selectCol;
+            let inputvalue=this.labelinputvalue
+            this.$root.bus.$emit('ptzcloud', vid,playid,action,inputvalue);
+            },
+        //历史记录
+        historyimg(){
+        // 储存抓图
+        let srcimg=[]
+        let Screen=JSON.parse(localStorage.getItem("flatviewHistory"))
+            Screen.forEach((value,index,arr)=>{
+                let token=value.token
+                console.log(token )
+            // return false
+                let Screenshotsurl=this.$store.state.callport+ "/api/v1/GetImage?token=" +token + "&session=" + this.$store.state.token;
+                console.log(Screenshotsurl)
+                this.$http({
+                    url: Screenshotsurl,
+                    methods: 'get',
+                    responseType: 'blob',//接收的值类型
+                    }).then((res) => {
+                    let blob=res.data
+                    let src = window.URL.createObjectURL(blob)//转换为图片路径
+                    console.log(src)
+                        // srcimg.push(src)+"<br/>"
+                        srcimg.splice(0,0,src) 
+                        this.$nextTick(() => {
+                        console.log(srcimg)
+                        let dataimg=Screen.map(function(item,index,array){
+                            return {
+                                    hlsver: item.hlsver,
+                                    host: item.host,
+                                    label:item.label,
+                                    protocol:item.protocol,
+                                    rootpath:item.rootpath,
+                                    session:item.session,
+                                    token: item.token,
+                                    videoid: item.videoid,
+                                    Screenshotimg:srcimg[index]
+                                }
+                        })
+                    this.viewHistory=dataimg
+                    console.log(dataimg)
+                })
+            }).catch(err=>{console.log(1)})
+	    })
+       },
+        // 历史记录播放
+        changePanelhistory(item) {
+            console.log(item)	
+            let _this = this;
+            let vid = 'h' + _this.$data.selectRow + _this.$data.selectCol;
+            let playid = 'hvideo' + this.$data.selectRow + this.$data.selectCol;
+            _this.$root.bus.$emit('liveplay', item.token,item.streamprofile, item.label,item.strName, vid);
+            var root = process.env.API_ROOT;
+            var wsroot = process.env.WS_HOST_ROOT;
+            if (root == undefined){
+                root = this.$store.state.callport + window.location.pathname;
+            }
+            let conf = {
+                    videoid: 'playid',
+                    protocol:"http:", //http: or https:
+                    host: item.host, //localhost:8080
+                    streamprofile:item.streamprofile, // {string} - stream profile, main/sub or other predefine transcoding profile
+                    rootpath:item.rootpath, // '/'
+                    token: item.token,
+                    hlsver: item.hlsver, //v1 is for ts, v2 is for fmp4
+                    session: item.session, //session got from login,
+                    label: item.label,
+                    };
+        this.h5handler = new H5sPlayerRTC(conf);
+        $("#"+this.rtcid).addClass("rtc_new");
+        this.h5handler = new H5sPlayerWS(conf);
+        this.h5handler.connect();
     },
-    PtzActionZoomIn(event)
-  {
-    console.log("PtzActionZoomIn");
-    this.PtzActionfather('zoomin');
-     event.stopPropagation();
-	 event.preventDefault()
-   },
-    PtzActionZoomOut(event)
-   {
-    this.PtzActionfather('zoomout');
-   },
-    PtzActionLeft(event)
-   {
-    this.PtzActionfather('left');
-    },
-    PtzActionRight(event)
-   {
-    this.PtzActionfather('right');
-   },
-    PtzActionUp(event)
-   {
-    this.PtzActionfather('up');
-    event.stopPropagation();
-	event.preventDefault()
-  },
-  PtzActionDown(event)
-  {
-    this.PtzActionfather('down');
-  },
-  PtzActionStop(event)
-  {
-    console.log("PtzActionStop");
-    this.PtzActionfather('stop');
-  },
-   // PTZ方法   
-  PtzActionfather(action)
-  {    
-    console.log(1)
-     let vid = 'h' + this.$data.selectRow + this.$data.selectCol;
-     let playid = 'hvideo' + this.$data.selectRow + this.$data.selectCol;
-     let inputvalue=this.labelinputvalue
-     this.$root.bus.$emit('ptzcloud', vid,playid,action,inputvalue);
-    },
-    //历史记录
-    historyimg(){
-	   // 储存抓图
-	   let srcimg=[]
-	   let Screen=JSON.parse(localStorage.getItem("flatviewHistory"))
-		Screen.forEach((value,index,arr)=>{
-			let token=value.token
-			console.log(token )
-		// return false
-		    let Screenshotsurl=this.$store.state.callport+ "/api/v1/GetImage?token=" +token + "&session=" + this.$store.state.token;
-			console.log(Screenshotsurl)
-			this.$http({
-				url: Screenshotsurl,
-				methods: 'get',
-				responseType: 'blob',//接收的值类型
-				}).then((res) => {
-				let blob=res.data
-				let src = window.URL.createObjectURL(blob)//转换为图片路径
-				console.log(src)
-					// srcimg.push(src)+"<br/>"
-					srcimg.splice(0,0,src) 
-				    this.$nextTick(() => {
-			        console.log(srcimg)
-			        let dataimg=Screen.map(function(item,index,array){
-						return {
-								hlsver: item.hlsver,
-								host: item.host,
-								label:item.label,
-								protocol:item.protocol,
-								rootpath:item.rootpath,
-								session:item.session,
-								token: item.token,
-                                videoid: item.videoid,
-                                Screenshotimg:srcimg[index]
-							}
-					 })
-				 this.viewHistory=dataimg
-				console.log(dataimg)
-			})
-		 }).catch(err=>{console.log(1)})
-	 })
-    },
-    // 历史记录播放
-	changePanelhistory(item) {
-		console.log(item)	
-		 let _this = this;
-		 let vid = 'h' + _this.$data.selectRow + _this.$data.selectCol;
-		 let playid = 'hvideo' + this.$data.selectRow + this.$data.selectCol;
-		 _this.$root.bus.$emit('liveplay', item.token,item.streamprofile, item.label,item.strName, vid);
-		var root = process.env.API_ROOT;
-		var wsroot = process.env.WS_HOST_ROOT;
-		if (root == undefined){
-			root = this.$store.state.callport + window.location.pathname;
-		}
-	    let conf = {
-                videoid: 'playid',
-                protocol:"http:", //http: or https:
-                host: item.host, //localhost:8080
-                streamprofile:item.streamprofile, // {string} - stream profile, main/sub or other predefine transcoding profile
-                rootpath:item.rootpath, // '/'
-                token: item.token,
-                hlsver: item.hlsver, //v1 is for ts, v2 is for fmp4
-                session: item.session, //session got from login,
-                label: item.label,
-                };
-	   this.h5handler = new H5sPlayerRTC(conf);
-	   $("#"+this.rtcid).addClass("rtc_new");
-	   this.h5handler = new H5sPlayerWS(conf);
-	   this.h5handler.connect();
-    },
-   
-  }
-  
-}
+   }
+ }
 </script>
 
 <style scoped>

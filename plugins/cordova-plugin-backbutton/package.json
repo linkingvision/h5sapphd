@@ -1,0 +1,52 @@
+{
+  "_from": "cordova-plugin-backbutton",
+  "_id": "cordova-plugin-backbutton@0.3.0",
+  "_inBundle": false,
+  "_integrity": "sha1-dS/Wj/+D05F64e/23izVD8zgJOM=",
+  "_location": "/cordova-plugin-backbutton",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "cordova-plugin-backbutton",
+    "name": "cordova-plugin-backbutton",
+    "escapedName": "cordova-plugin-backbutton",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-backbutton/-/cordova-plugin-backbutton-0.3.0.tgz",
+  "_shasum": "752fd68fff83d3917ae1eff6de2cd50fcce024e3",
+  "_spec": "cordova-plugin-backbutton",
+  "_where": "D:\\work\\ipaddev\\Myipadapp",
+  "bugs": {
+    "url": "https://github.com/mohamed-salah/phonegap-backbutton-plugin/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-plugin-backbutton",
+    "platforms": [
+      "android"
+    ]
+  },
+  "deprecated": false,
+  "description": "Cordova Backbutton Plugin",
+  "homepage": "https://github.com/mohamed-salah/phonegap-backbutton-plugin#readme",
+  "keywords": [
+    "cordova",
+    "backbutton",
+    "ecosystem:cordova",
+    "cordova-android"
+  ],
+  "license": "MIT",
+  "name": "cordova-plugin-backbutton",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mohamed-salah/phonegap-backbutton-plugin.git"
+  },
+  "version": "0.3.0"
+}

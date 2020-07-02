@@ -1,0 +1,76 @@
+{
+  "_from": "cordova-plugin-broadcaster@4.1.0",
+  "_id": "cordova-plugin-broadcaster@4.1.0",
+  "_inBundle": false,
+  "_integrity": "sha512-7mWNTqRQoVOf1pgrQdUzo3y5owXgYLXEVBIKj/imfnCSceurw/wPbYqhEQ/ctxTrC52OmdVSr52UuBs6O3x2xw==",
+  "_location": "/cordova-plugin-broadcaster",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "cordova-plugin-broadcaster@4.1.0",
+    "name": "cordova-plugin-broadcaster",
+    "escapedName": "cordova-plugin-broadcaster",
+    "rawSpec": "4.1.0",
+    "saveSpec": null,
+    "fetchSpec": "4.1.0"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-plugin-broadcaster/-/cordova-plugin-broadcaster-4.1.0.tgz",
+  "_shasum": "aa8e740395c37ff537f3144d780102750926980c",
+  "_spec": "cordova-plugin-broadcaster@4.1.0",
+  "_where": "D:\\work\\ipaddev\\Myipadapp",
+  "author": {
+    "name": "bsorrentino"
+  },
+  "bugs": {
+    "url": "https://github.com/bsorrentino/cordova-broadcaster/issues"
+  },
+  "bundleDependencies": false,
+  "cordova": {
+    "id": "cordova-plugin-broadcaster",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "dependencies": {},
+  "deprecated": false,
+  "description": "Allow send message from Javascript to Native",
+  "devDependencies": {
+    "@types/cordova": "0.0.34",
+    "@types/node": "^13.9.2",
+    "auto-changelog": "^1.16.2",
+    "npx-run": "^2.1.2",
+    "typescript": "^3.8.3"
+  },
+  "engines": {
+    "cordovaDependencies": {
+      "2.2.1": {
+        "cordova": ">3.9.0"
+      },
+      "2.3.0": {
+        "cordova": ">4.0.0"
+      }
+    }
+  },
+  "homepage": "https://github.com/bsorrentino/cordova-broadcaster#readme",
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "license": "MIT",
+  "name": "cordova-plugin-broadcaster",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bsorrentino/cordova-broadcaster.git"
+  },
+  "scripts": {
+    "changelog": "auto-changelog -u"
+  },
+  "version": "4.1.0"
+}

@@ -12,7 +12,26 @@
     },
     "cordova-plugin-whitelist": {
       "PACKAGE_NAME": "org.apache.cordova.myApp"
+    },
+    "cordova-plugin-broadcaster": {
+      "PACKAGE_NAME": "org.apache.cordova.myApp"
+    },
+    "cordova-plugin-background-mode": {
+      "PACKAGE_NAME": "org.apache.cordova.myApp"
+    },
+    "cordova-plugin-backbutton": {
+      "PACKAGE_NAME": "org.apache.cordova.myApp"
+    },
+    "cordova-plugin-local-notification": {
+      "PACKAGE_NAME": "org.apache.cordova.myApp"
     }
   },
-  "dependent_plugins": {}
+  "dependent_plugins": {
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "org.apache.cordova.myApp"
+    },
+    "cordova-plugin-badge": {
+      "PACKAGE_NAME": "org.apache.cordova.myApp"
+    }
+  }
 }

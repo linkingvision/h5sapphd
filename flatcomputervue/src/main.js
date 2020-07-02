@@ -46,6 +46,25 @@ function sethtml(designSize, rootValue){
     　　websocket.close();
     },
   // 权限
+  // document.addEventListener("deviceready", onDeviceReady, false);
+  // function onDeviceReady() {
+  //      console.log(888)
+  //      alert('你好')
+        // if (window.broadcaster) {
+        //     console.log(window.broadcaster);
+        //     alert('你好')
+        //     console.log(888)
+		    //   var listener = function( e ) {
+        //         //接收到广播信息
+        //         alert('你好')
+        //         console.log(888)
+		    //         console.log( "didShow received! userInfo: " + JSON.stringify(e)  );
+		    //   }
+		    //   window.broadcaster.addEventListener( "didShow", listener);
+        // }else {
+        //     console.log('window.broadcaster not available');
+        // }        
+    // }
 // new Promise(function (resolve, reject) {
 //     var permissions = cordova.plugins.permissions;
 //     var list = [
@@ -90,6 +109,7 @@ function sethtml(designSize, rootValue){
 //     //获取权限失败！！！
 //     alert('permission request fail')
 // })
+
  // http request 拦截器
 axios.interceptors.request.use(
   config => {
