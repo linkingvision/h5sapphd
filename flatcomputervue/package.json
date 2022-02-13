@@ -12,7 +12,7 @@
   "dependencies": {
     "@ionic/core": "^4.11.10",
     "@ionic/vue": "^0.0.4",
-    "ajv": "^6.12.2",
+    "ajv": "^6.12.3",
     "axios": "^0.19.2",
     "element-ui": "^2.13.2",
     "lib-flexible": "^0.3.2",
